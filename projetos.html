@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="pg-enter">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Projetos · Simple Design</title>
+<link rel="icon" href="assets/icons/logo_icon_01.png" type="image/png">
+<link rel="apple-touch-icon" href="assets/icons/logo_icon_01.png">
+<meta name="theme-color" content="#0C0C0E">
+<meta name="description" content="Portfólio completo: sites, identidade visual e redes sociais." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&family=Hanken+Grotesk:ital,wght@0,300..800;1,400..600&display=swap" rel="stylesheet">
+<link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+<link href="fx.css" rel="stylesheet">
+
+<style>
+:root{
+  --ink:#0C0C0E;--ink-2:#141417;--paper:#F2EFE8;--paper-2:#E9E5DB;
+  --on-dark:#ECE9E2;--on-dark-mut:#8E8B84;--on-light:#15130E;--on-light-mut:#5B584F;
+  --accent:#FF5A2C;--accent-deep:#D8421B;
+  --line-dark:rgba(236,233,226,.14);--line-light:rgba(21,19,14,.14);
+  --r:16px;--r-lg:28px;--r-pill:999px;--maxw:1240px;--pad:clamp(20px,5vw,72px);
+  --ease:cubic-bezier(.22,.61,.36,1);--ease-out:cubic-bezier(.16,1,.3,1);
+  --font-display:"Bricolage Grotesque",serif;--font-body:"Hanken Grotesk",system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;min-width:0}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{font-family:var(--font-body);background:var(--paper);color:var(--on-light);-webkit-font-smoothing:antialiased;line-height:1.55}
+section,footer,header{max-width:100%;overflow-x:clip}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
+::selection{background:var(--accent);color:#fff}
+body::after{content:"";position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:.05;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.wrap{max-width:var(--maxw);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
+
+.btn{position:relative;display:inline-flex;align-items:center;gap:.6em;padding:.95em 1.5em;border-radius:var(--r-pill);font-weight:600;overflow:hidden;transition:transform .4s var(--ease-out),color .4s var(--ease);isolation:isolate}
+.btn svg{transition:transform .4s var(--ease-out)}
+.btn::before{content:"";position:absolute;inset:0;z-index:-1;border-radius:inherit;transform:translateY(101%);transition:transform .5s var(--ease-out)}
+.btn:hover{transform:translateY(-2px)}.btn:hover svg{transform:translate(3px,-3px)}.btn:hover::before{transform:translateY(0)}
+.btn-ghost{border:1px solid var(--line-light);color:var(--on-light)}.btn-ghost::before{background:var(--on-light)}.btn-ghost:hover{color:var(--paper)}
+.btn:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+
+/* top bar */
+.bar{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:1rem var(--pad);background:rgba(12,12,14,.6);backdrop-filter:blur(14px);border-bottom:1px solid var(--line-dark);color:var(--on-dark)}
+.back{display:inline-flex;align-items:center;gap:.5em;font-weight:600;font-size:.95rem}
+.back svg{transition:transform .3s var(--ease-out)}
+.back:hover svg{transform:translateX(-4px)}
+.bar .brand{font-family:var(--font-display);font-weight:700;display:flex;align-items:center;gap:.5em;font-size:1.05rem}
+.bar .brand .dot{width:8px;height:8px;border-radius:50%;background:var(--accent)}
+
+/* hero */
+.p-hero{padding:clamp(3rem,8vw,5.5rem) 0 clamp(2rem,4vw,3rem)}
+.p-hero .eyebrow{font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;font-weight:600;display:inline-flex;align-items:center;gap:.6em;color:var(--on-light-mut)}
+.p-hero .eyebrow::before{content:"";width:28px;height:1px;background:currentColor;opacity:.6}
+.p-hero h1{font-family:var(--font-display);font-weight:600;font-size:clamp(2.4rem,6.5vw,4.6rem);line-height:1;letter-spacing:-.03em;margin-top:.8rem;text-wrap:balance}
+.p-hero p{color:var(--on-light-mut);margin-top:1rem;max-width:48ch;font-size:1.08rem}
+
+/* filtros */
+.filters{display:flex;flex-wrap:wrap;gap:.6rem;padding-bottom:2.4rem}
+.filter{padding:.6em 1.15em;border-radius:var(--r-pill);border:1px solid var(--line-light);font-size:.9rem;font-weight:600;color:var(--on-light-mut);transition:.35s var(--ease)}
+.filter[aria-pressed="true"]{background:var(--on-light);color:var(--paper);border-color:var(--on-light)}
+.filter:hover{color:var(--on-light)}
+.filter[aria-pressed="true"]:hover{color:var(--paper)}
+.filter:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.filter .count{opacity:.6;font-weight:500;margin-left:.3em}
+
+/* grid */
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;padding-bottom:clamp(4rem,8vw,6.5rem)}
+.case{display:block;border-radius:var(--r-lg);overflow:hidden;background:var(--paper-2);border:1px solid var(--line-light);transition:transform .55s var(--ease-out),border-color .4s,opacity .5s}
+.case.hide{display:none}
+.case:hover{transform:translateY(-6px);border-color:rgba(21,19,14,.3)}
+.case-thumb{aspect-ratio:4/3;position:relative;overflow:hidden}
+.case-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease-out)}
+.case:hover .case-thumb img{transform:scale(1.06)}
+.case-thumb .badge{position:absolute;top:14px;left:14px;padding:.4em .8em;border-radius:var(--r-pill);font-size:.72rem;font-weight:600;letter-spacing:.04em;background:rgba(12,12,14,.6);color:#fff;backdrop-filter:blur(8px)}
+.case-thumb .view{position:absolute;bottom:14px;right:14px;width:42px;height:42px;border-radius:50%;background:var(--accent);display:grid;place-items:center;transform:translateY(120%) rotate(-30deg);transition:transform .5s var(--ease-out)}
+.case:hover .view{transform:none}
+.case-body{padding:1.3rem 1.4rem 1.5rem}
+.case-body h3{font-family:var(--font-display);font-weight:600;font-size:1.3rem;letter-spacing:-.02em;line-height:1.1}
+.case-tags{display:flex;flex-wrap:wrap;gap:.45rem;margin-top:.9rem}
+.case-tags span{font-size:.74rem;font-weight:500;padding:.32em .7em;border:1px solid var(--line-light);border-radius:var(--r-pill);color:var(--on-light-mut)}
+
+.empty{grid-column:1/-1;text-align:center;color:var(--on-light-mut);padding:3rem 0}
+
+/* CTA final */
+.p-foot{background:var(--ink);color:var(--on-dark);padding:clamp(4rem,8vw,6rem) 0;position:relative;overflow-x:clip;overflow-y:hidden;text-align:center}
+.p-foot::before{content:"";position:absolute;inset:auto 0 -40%;width:100%;height:60%;background:radial-gradient(50% 100% at 50% 100%,rgba(255,90,44,.12),transparent 70%);filter:blur(10px);transform-origin:center bottom}
+.p-foot .wrap{position:relative;z-index:1}
+.p-foot h2{font-family:var(--font-display);font-weight:600;font-size:clamp(1.9rem,5vw,3.2rem);line-height:1.02;letter-spacing:-.03em;text-wrap:balance}
+.p-foot h2 em{font-style:italic;color:var(--accent);font-weight:500}
+.p-foot .row{margin-top:2rem;display:flex;justify-content:center;gap:.9rem;flex-wrap:wrap}
+.btn-primary{background:var(--accent);color:#fff}.btn-primary::before{background:var(--accent-deep)}
+.btn-ghost-d{border:1px solid var(--line-dark);color:var(--on-dark)}.btn-ghost-d::before{background:var(--on-dark)}.btn-ghost-d:hover{color:var(--ink)}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .8s var(--ease-out),transform .8s var(--ease-out)}
+.reveal.in-view{opacity:1;transform:none}
+.reveal[data-d="1"]{transition-delay:.06s}.reveal[data-d="2"]{transition-delay:.12s}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+/* ── 1024px: tablet landscape ── */
+@media (max-width: 1024px) {
+  .nav { left: 16px; right: 16px; }
+  .bar { max-width: 100%; }
+}
+
+/* ── 768px: tablet portrait ── */
+@media (max-width: 768px) {
+  .bar { padding: .9rem var(--pad); }
+  .p-hero { padding: 96px 0 2rem; }
+  .p-hero h1 { font-size: 2.4rem; }
+  .grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+  .filters { gap: .45rem; }
+  .filter { font-size: .85rem; padding: .5em .9em; }
+}
+
+/* ── 480px: mobile grande ── */
+@media (max-width: 480px) {
+  .nav { top: 10px; left: 20px; right: 20px; }
+  .p-hero h1 { font-size: 2rem; max-width: 100%; overflow-wrap: break-word; word-break: break-word; }
+  .p-foot h2 { font-size: 1.8rem; }
+  .p-foot .row { flex-direction: column; align-items: center; }
+  .p-foot .row .btn { width: 100%; justify-content: center; }
+  .grid { grid-template-columns: 1fr; gap: .9rem; }
+}
+</style>
+</head>
+<body data-calendly="https://calendly.com/SEU-USUARIO/20min">
+
+<div class="bar">
+  <a class="back" href="index.html">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
+    Voltar ao início
+  </a>
+  <a class="brand" href="index.html" aria-label="Início"><img src="assets/logo/logo_02.png" alt="Simple Design" height="32" style="width:auto;display:block"></a>
+</div>
+
+<header class="p-hero">
+  <div class="wrap">
+    <span class="eyebrow reveal">Portfólio completo</span>
+    <h1 class="reveal" data-d="1">Todos os projetos</h1>
+    <p class="reveal" data-d="2">Tudo o que já criei, organizado por área. Filtre pelo que te interessa e clique para ver o case completo.</p>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="filters reveal" role="group" aria-label="Filtrar por categoria">
+    <button class="filter" data-group="all" aria-pressed="true">Todos</button>
+    <button class="filter" data-group="sites" aria-pressed="false">Sites</button>
+    <button class="filter" data-group="marcas" aria-pressed="false">Identidade Visual</button>
+    <button class="filter" data-group="social" aria-pressed="false">Redes Sociais</button>
+  </div>
+
+  <div class="grid" id="grid">
+    <!-- Os cards são gerados via JS a partir da lista PROJECTS (edite lá embaixo) -->
+  </div>
+</div>
+
+<footer class="p-foot">
+  <div class="wrap">
+    <h2>Achou um estilo que combina com <em>você</em>?</h2>
+    <div class="row">
+      <a href="index.html#contato" class="btn btn-primary" data-calendly>Agendar um papo de 20 min<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 14v2.2l1.6 1"/><path d="M16 2v4"/><path d="M21 7.5V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h3.5"/><path d="M3 10h5"/><path d="M8 2v4"/><circle cx="16" cy="16" r="6"/></svg></a>
+      <a href="index.html" class="btn btn-ghost-d">Voltar ao início</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var reduceMotion = window.matchMedia("(prefers-reduced-motion:reduce)").matches;
+
+  /* ============================================================
+     LISTA DE PROJETOS — edite aqui (adicione 6+ por área)
+     cat: "sites" | "marcas" | "social"
+     slug: liga ao case.html?p=SLUG (se houver um case detalhado; senão deixe "")
+     ============================================================ */
+  var PROJECTS = [
+    // SITES
+    {cat:"sites",  slug:"valormed",        badge:"Site",         title:"Valor Med",          img:"assets/images/case_valormed/valormed_img_03.jpg",                tags:["Identidade Visual","Site"]},
+    {cat:"sites",  slug:"eadplataforma",   badge:"Site",         title:"EAD Plataforma",     img:"assets/images/case_eadplataforma/eadplataforma_img_01.jpg",      tags:["Identidade Visual","UI Design","Site"]},
+    {cat:"sites",  slug:"pessoar",         badge:"Site",         title:"Pessoar",            img:"assets/images/case_pessoar/pessoar_img_01.webp",                 tags:["Identidade Visual","Logo Design","Site"]},
+    {cat:"sites",  slug:"internnova",      badge:"Site",         title:"Internnova",         img:"assets/images/case_Internnova/Internnova_img_01.webp",           tags:["Identidade Visual","Logo Design","Site"]},
+    {cat:"sites social", slug:"smartboxbr",  badge:"Site & Social Media", title:"SmartBox", img:"assets/images/case_smartboxbr/smartboxbr_img_01.jpg",            tags:["Web Design","Desenvolvimento de Site","Social Media Design","Gestão de Redes Sociais"]},
+    // IDENTIDADE VISUAL / BRANDING
+    {cat:"marcas", slug:"deguste",         badge:"Branding",     title:"Deguste",            img:"assets/images/case_deguste/deguste_img_01.webp",                 tags:["Identidade Visual","Logo Design","Papelaria"]},
+    {cat:"marcas", slug:"doseugosto",      badge:"Branding",     title:"Do Seu Gosto",       img:"assets/images/case_doseugosto/doseugosto_img_01.webp",           tags:["Identidade Visual","Logo Design","Embalagens"]},
+    {cat:"marcas", slug:"moodcafe",        badge:"Branding",     title:"Mood Café",          img:"assets/images/case_moodcafe/moodcafe_img_01.webp",               tags:["Branding Completo","Logo Design","Embalagens"]},
+    {cat:"marcas", slug:"studiolabcreate", badge:"Branding",     title:"Studio Lab Create",  img:"assets/images/case_studiolabcreate/studiolabcreate_img_01.webp", tags:["Brand Identity","Logo Design","Sistema Visual"]},
+    {cat:"marcas", slug:"utilipets",       badge:"Branding",     title:"Utilipets",          img:"assets/images/case_utilipets/utilipets_img_01.png",              tags:["Branding Completo","Logo Design","Embalagens"]},
+    // REDES SOCIAIS
+    {cat:"social", slug:"futpalmeirense",  badge:"Social Media", title:"Fut Palmeirense",    img:"assets/images/case_futpalmeirense/futpalmeirense_img_01.jpg",    tags:["Social Media Design","Conteúdo Editorial","Motion Graphics"]}
+  ];
+
+  var ARROW_UR = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>';
+
+  var grid = document.getElementById("grid");
+
+  function cardHTML(p, i){
+    var tags = p.tags.map(function(t){return '<span>'+t+'</span>';}).join('');
+    var href = p.slug ? ('case.html?p='+p.slug) : '#';
+    var d = (i % 3) ? ' data-d="'+(i%3)+'"' : '';
+    return ''+
+      '<a class="case reveal"'+d+' data-cat="'+p.cat+'" href="'+href+'" aria-label="Ver case: '+p.title+'">'+
+        '<div class="case-thumb">'+
+          '<img src="'+p.img+'" alt="'+p.title+'" loading="lazy">'+
+          '<span class="badge">'+p.badge+'</span>'+
+          '<span class="view" aria-hidden="true">'+ARROW_UR+'</span>'+
+        '</div>'+
+        '<div class="case-body">'+
+          '<h3>'+p.title+'</h3>'+
+          '<div class="case-tags">'+tags+'</div>'+
+        '</div>'+
+      '</a>';
+  }
+
+  grid.innerHTML = PROJECTS.map(cardHTML).join('') +
+    '<p class="empty" id="empty" style="display:none">Nenhum projeto nesta categoria ainda.</p>';
+
+  var cases = [].slice.call(grid.querySelectorAll(".case"));
+  var emptyEl = document.getElementById("empty");
+
+  /* contagem por filtro */
+  var counts = {all:cases.length, sites:0, marcas:0, social:0};
+  PROJECTS.forEach(function(p){ p.cat.split(" ").forEach(function(k){ if(counts[k]!=null) counts[k]++; }); });
+  [].slice.call(document.querySelectorAll(".filter")).forEach(function(f){
+    var g = f.getAttribute("data-group");
+    if(counts[g] != null){ f.innerHTML += ' <span class="count">'+counts[g]+'</span>'; }
+  });
+
+  /* filtro (suporta ?cat= vindo da home, se quiser usar no futuro) */
+  var filters = [].slice.call(document.querySelectorAll(".filter"));
+  function applyFilter(group){
+    var visible = 0;
+    cases.forEach(function(c){
+      var match = group === "all" || c.getAttribute("data-cat").split(" ").indexOf(group) !== -1;
+      c.classList.toggle("hide", !match);
+      if(match) visible++;
+    });
+    filters.forEach(function(f){ f.setAttribute("aria-pressed", f.getAttribute("data-group") === group ? "true":"false"); });
+    emptyEl.style.display = visible ? "none" : "block";
+  }
+  filters.forEach(function(btn){
+    btn.addEventListener("click", function(){ applyFilter(btn.getAttribute("data-group")); });
+  });
+
+  var qp = (location.search.match(/[?&]cat=([^&]+)/)||[])[1];
+  if(qp && counts[qp] != null) applyFilter(qp);
+
+  /* reveal */
+  var revealEls = [].slice.call(document.querySelectorAll(".reveal"));
+  if(reduceMotion || !("IntersectionObserver" in window)){
+    revealEls.forEach(function(el){ el.classList.add("in-view"); });
+  } else {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add("in-view"); io.unobserve(en.target); } });
+    }, {threshold:0.1, rootMargin:"0px 0px -6% 0px"});
+    revealEls.forEach(function(el){ io.observe(el); });
+  }
+})();
+</script>
+
+<script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+<script src="fx.js"></script>
+</body>
+</html>

@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(Start-Job -Name \"WebServer\" -ScriptBlock { powershell -File \"c:\\\\Users\\\\thiag\\\\OneDrive\\\\Desktop\\\\Projeto Site\\\\serve.ps1\" }; Start-Sleep -Seconds 3; \\(Invoke-WebRequest -Uri \"http://localhost:3000\" -UseBasicParsing\\).StatusCode)"
+    ]
+  }
+}

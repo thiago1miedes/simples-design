@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="pg-enter">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Admin · Simple Design</title>
+<link rel="icon" href="assets/icons/logo_icon_01.png" type="image/png">
+<link rel="apple-touch-icon" href="assets/icons/logo_icon_01.png">
+<meta name="theme-color" content="#0C0C0E">
+<meta name="robots" content="noindex, nofollow">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&family=Hanken+Grotesk:ital,wght@0,300..800;1,400..600&display=swap" rel="stylesheet">
+
+<link href="fx.css" rel="stylesheet">
+<link href="assets/css/admin.css" rel="stylesheet">
+</head>
+<body>
+
+<!-- ============ LOGIN ============ -->
+<section class="login" id="loginView">
+  <form class="login-card" id="loginForm" novalidate>
+    <div class="login-logo">
+      <img src="assets/logo/logo_white_01.png" alt="Simple Design">
+    </div>
+    <h1>Painel de Briefings</h1>
+    <p class="sub">Acesso restrito à equipe.</p>
+
+    <div class="field">
+      <label for="loginEmail">E-mail</label>
+      <input class="input" type="email" id="loginEmail" autocomplete="email" required>
+    </div>
+    <div class="field">
+      <label for="loginPass">Senha</label>
+      <input class="input" type="password" id="loginPass" autocomplete="current-password" required>
+    </div>
+
+    <button type="submit" class="btn btn-primary" id="loginBtn">
+      <span class="spinner" aria-hidden="true"></span>
+      <span class="btn-label">Entrar</span>
+    </button>
+
+    <div class="login-error" id="loginError" role="alert">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>
+      <span id="loginErrorMsg">E-mail ou senha incorretos.</span>
+    </div>
+  </form>
+</section>
+
+<!-- ============ DASHBOARD ============ -->
+<main class="dash" id="dashView">
+  <header class="dash-header">
+    <div class="brand">
+      <img src="assets/logo/logo_white_01.png" alt="Simple Design">
+    </div>
+    <div style="display:flex;align-items:center;gap:1.2rem">
+      <span class="greet">Olá, <b id="userName">—</b></span>
+      <button class="btn-logout" id="logoutBtn">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/></svg>
+        Sair
+      </button>
+    </div>
+  </header>
+
+  <div class="dash-body">
+    <span class="eyebrow">Briefings recebidos</span>
+    <h2 class="dash-title">Caixa de entrada</h2>
+
+    <div class="dash-controls">
+      <div class="tabs" id="tabs">
+        <button class="tab active" data-filter="all">Todos <span class="count" data-count="all">0</span></button>
+        <button class="tab" data-filter="novo">Novo <span class="count" data-count="novo">0</span></button>
+        <button class="tab" data-filter="em_analise">Em análise <span class="count" data-count="em_analise">0</span></button>
+        <button class="tab" data-filter="respondido">Respondido <span class="count" data-count="respondido">0</span></button>
+        <button class="tab" data-filter="arquivado">Arquivado <span class="count" data-count="arquivado">0</span></button>
+      </div>
+      <div class="search">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        <input type="search" id="searchInput" placeholder="Buscar por nome ou e-mail…" autocomplete="off">
+      </div>
+    </div>
+
+    <!-- skeletons -->
+    <div class="cards-grid" id="skeletonGrid">
+      <div class="skel-card"><div class="skel l1"></div><div class="skel l2"></div><div class="skel l3"></div><div class="skel l4"></div><div class="skel l5"></div></div>
+      <div class="skel-card"><div class="skel l1"></div><div class="skel l2"></div><div class="skel l3"></div><div class="skel l4"></div><div class="skel l5"></div></div>
+      <div class="skel-card"><div class="skel l1"></div><div class="skel l2"></div><div class="skel l3"></div><div class="skel l4"></div><div class="skel l5"></div></div>
+    </div>
+
+    <!-- cards reais -->
+    <div class="cards-grid" id="cardsGrid" style="display:none"></div>
+
+    <!-- estado vazio -->
+    <div class="empty" id="emptyState">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></svg>
+      <p id="emptyMsg">Nenhum briefing recebido ainda.</p>
+    </div>
+  </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/js/supabase-config.js"></script>
+<script src="assets/js/admin.js"></script>
+<script src="fx.js"></script>
+</body>
+</html>

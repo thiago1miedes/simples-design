@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="pg-enter">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Case · Simple Design</title>
+<link rel="icon" href="assets/icons/logo_icon_01.png" type="image/png">
+<link rel="apple-touch-icon" href="assets/icons/logo_icon_01.png">
+<meta name="theme-color" content="#0C0C0E">
+<meta name="description" content="Estudo de caso detalhado de um projeto de design." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&family=Hanken+Grotesk:ital,wght@0,300..800;1,400..600&display=swap" rel="stylesheet">
+
+<link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+<link href="fx.css" rel="stylesheet">
+
+<style>
+:root{
+  --ink:#0C0C0E;--ink-2:#141417;--paper:#F2EFE8;--paper-2:#E9E5DB;
+  --on-dark:#ECE9E2;--on-dark-mut:#8E8B84;--on-light:#15130E;--on-light-mut:#5B584F;
+  --accent:#FF5A2C;--accent-deep:#D8421B;
+  --line-dark:rgba(236,233,226,.14);--line-light:rgba(21,19,14,.14);
+  --r:16px;--r-lg:28px;--r-pill:999px;--maxw:1180px;--pad:clamp(20px,5vw,72px);
+  --ease:cubic-bezier(.22,.61,.36,1);--ease-out:cubic-bezier(.16,1,.3,1);
+  --font-display:"Bricolage Grotesque",serif;--font-body:"Hanken Grotesk",system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;min-width:0}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{font-family:var(--font-body);background:var(--paper);color:var(--on-light);-webkit-font-smoothing:antialiased;line-height:1.6}
+section,footer,header{max-width:100%;overflow-x:clip}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
+::selection{background:var(--accent);color:#fff}
+body::after{content:"";position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:.05;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.wrap{max-width:var(--maxw);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
+
+.btn{position:relative;display:inline-flex;align-items:center;gap:.6em;padding:.95em 1.5em;border-radius:var(--r-pill);font-weight:600;overflow:hidden;transition:transform .4s var(--ease-out),color .4s var(--ease);isolation:isolate}
+.btn svg{transition:transform .4s var(--ease-out)}
+.btn::before{content:"";position:absolute;inset:0;z-index:-1;border-radius:inherit;transform:translateY(101%);transition:transform .5s var(--ease-out)}
+.btn:hover{transform:translateY(-2px)}.btn:hover svg{transform:translate(3px,-3px)}.btn:hover::before{transform:translateY(0)}
+.btn-primary{background:var(--accent);color:#fff}.btn-primary::before{background:var(--accent-deep)}
+.btn-ghost-d{border:1px solid var(--line-dark);color:var(--on-dark)}.btn-ghost-d::before{background:var(--on-dark)}.btn-ghost-d:hover{color:var(--ink)}
+.btn:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+
+/* top bar */
+.bar{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:1rem var(--pad);background:rgba(12,12,14,.6);backdrop-filter:blur(14px);border-bottom:1px solid var(--line-dark);color:var(--on-dark)}
+.back{display:inline-flex;align-items:center;gap:.5em;font-weight:600;font-size:.95rem}
+.back svg{transition:transform .3s var(--ease-out)}
+.back:hover svg{transform:translateX(-4px)}
+.bar .brand{font-family:var(--font-display);font-weight:700;display:flex;align-items:center;gap:.5em;font-size:1.05rem}
+.bar .brand .dot{width:8px;height:8px;border-radius:50%;background:var(--accent)}
+
+/* hero */
+.c-hero{background:var(--ink);color:var(--on-dark);padding:clamp(3rem,8vw,6rem) 0 clamp(2.5rem,5vw,3.5rem);position:relative;overflow-x:clip;overflow-y:hidden}
+.c-hero::before{content:"";position:absolute;inset:-30% 0 auto;width:100%;height:120%;background:radial-gradient(40% 60% at 25% 20%,rgba(255,90,44,.16),transparent 70%);filter:blur(10px)}
+.c-hero .wrap{position:relative;z-index:1}
+.c-badge{display:inline-flex;align-items:center;gap:.5em;padding:.45em .95em;border:1px solid var(--line-dark);border-radius:var(--r-pill);font-size:.8rem;font-weight:600;letter-spacing:.04em;color:var(--accent);margin-bottom:1.5rem}
+.c-title{font-family:var(--font-display);font-weight:600;font-size:clamp(2.4rem,6.5vw,5rem);line-height:1;letter-spacing:-.03em;max-width:16ch}
+.c-sub{margin-top:1.4rem;max-width:52ch;color:var(--on-dark-mut);font-size:clamp(1.05rem,2vw,1.25rem)}
+.c-meta{display:flex;flex-wrap:wrap;gap:2.4rem;margin-top:2.6rem}
+.c-meta .m .l{font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;color:var(--on-dark-mut);margin-bottom:.35rem}
+.c-meta .m .v{font-weight:600;font-size:1rem}
+
+/* cover */
+.cover{margin-top:clamp(-2rem,-4vw,-3rem)}
+.cover .wrap{position:relative;z-index:2}
+.cover img{width:100%;border-radius:var(--r-lg);border:1px solid var(--line-light);aspect-ratio:16/9;object-fit:cover}
+
+/* body */
+.c-body{padding:clamp(3.5rem,8vw,6rem) 0}
+.c-grid{display:grid;grid-template-columns:.7fr 1.3fr;gap:clamp(2rem,5vw,5rem);align-items:start}
+.c-side{position:sticky;top:90px;display:flex;flex-direction:column;gap:1.6rem}
+.c-side .row .l{font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;color:var(--on-light-mut);margin-bottom:.45rem}
+.c-side .row .v{font-weight:500}
+.c-side .tags{display:flex;flex-wrap:wrap;gap:.45rem}
+.c-side .tags span{font-size:.76rem;padding:.32em .7em;border:1px solid var(--line-light);border-radius:var(--r-pill);color:var(--on-light-mut)}
+.c-main h2{font-family:var(--font-display);font-weight:600;font-size:clamp(1.5rem,3vw,2rem);letter-spacing:-.02em;margin:0 0 .9rem}
+.c-main .block+.block{margin-top:2.4rem}
+.c-main p{color:var(--on-light-mut);font-size:1.08rem;max-width:62ch}
+.c-main p+p{margin-top:1rem}
+
+/* apresentação longa (estilo Behance): largura total, altura natural, sem corte */
+.board{padding:0 0 clamp(3rem,7vw,5rem)}
+.board .b-head{margin-bottom:1.6rem}
+.board .b-head .l{font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;color:var(--on-light-mut)}
+.board-stack{display:flex;flex-direction:column;gap:1.2rem}
+.board-stack img{width:100%;height:auto;display:block;border-radius:var(--r-lg);border:1px solid var(--line-light)}
+
+/* cta / footer */
+.c-foot{background:var(--ink);color:var(--on-dark);padding:clamp(4rem,9vw,7rem) 0 2.5rem;position:relative;overflow-x:clip;overflow-y:hidden}
+.c-foot::before{content:"";position:absolute;inset:auto 0 -40%;width:100%;height:60%;background:radial-gradient(50% 100% at 50% 100%,rgba(255,90,44,.12),transparent 70%);filter:blur(10px);transform-origin:center bottom}
+.c-foot .wrap{position:relative;z-index:1}
+.c-foot .top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:2rem}
+.c-foot h2{font-family:var(--font-display);font-weight:600;font-size:clamp(2rem,6vw,3.6rem);line-height:1;letter-spacing:-.03em;max-width:14ch}
+.c-foot h2 em{font-style:italic;color:var(--accent);font-weight:500}
+.next{display:inline-flex;flex-direction:column;gap:.4rem;text-align:right;align-items:flex-end}
+.next .l{font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;color:var(--on-dark-mut)}
+.next a{font-family:var(--font-display);font-weight:600;font-size:1.4rem;letter-spacing:-.02em;display:inline-flex;align-items:center;gap:.4em}
+.next a svg{transition:transform .3s var(--ease-out);color:var(--accent)}
+.next a:hover svg{transform:translateX(5px)}
+.c-foot .cta-row{margin-top:2.6rem}
+.c-foot .bottom{margin-top:clamp(3rem,7vw,5rem);padding-top:1.6rem;border-top:1px solid var(--line-dark);display:flex;flex-wrap:wrap;justify-content:space-between;gap:1rem;color:var(--on-dark-mut);font-size:.88rem}
+.c-foot .bottom .brand{font-family:var(--font-display);font-weight:700;color:var(--on-dark);display:inline-flex;align-items:center;gap:.5em}
+.c-foot .bottom .brand .dot{width:8px;height:8px;border-radius:50%;background:var(--accent)}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .8s var(--ease-out),transform .8s var(--ease-out)}
+.reveal.in-view{opacity:1;transform:none}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+/* ── 1024px: tablet landscape ── */
+@media (max-width: 1024px) {
+  .nav { left: 16px; right: 16px; }
+  .bar { max-width: 100%; }
+}
+
+/* ── 768px: tablet portrait ── */
+@media (max-width: 768px) {
+  .bar { padding: .9rem var(--pad); }
+  .c-hero { padding-top: 96px; padding-bottom: 2rem; }
+  .c-title { font-size: 2.4rem; }
+  .c-grid { grid-template-columns: 1fr; gap: 2rem; }
+  .c-side { position: static; flex-direction: row; flex-wrap: wrap; gap: 1.4rem 2rem; }
+  .c-foot h2 { font-size: 2.2rem; }
+}
+
+/* ── 480px: mobile grande ── */
+@media (max-width: 480px) {
+  .nav { top: 10px; left: 20px; right: 20px; }
+  .c-title { font-size: 2rem; max-width: 100%; overflow-wrap: break-word; word-break: break-word; }
+  .c-meta { gap: 1.4rem; }
+  .c-foot .top { flex-direction: column; align-items: flex-start; }
+  .next { text-align: left; align-items: flex-start; }
+}
+</style>
+</head>
+<body data-calendly="https://calendly.com/SEU-USUARIO/20min">
+
+<div class="bar">
+  <a class="back" href="index.html#trabalhos">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
+    Voltar aos trabalhos
+  </a>
+  <a class="brand" href="index.html" aria-label="Início"><img src="assets/logo/logo_02.png" alt="Simple Design" height="32" style="width:auto;display:block"></a>
+</div>
+
+<header class="c-hero">
+  <div class="wrap">
+    <span class="c-badge" id="cBadge">Projeto</span>
+    <h1 class="c-title" id="cTitle">Carregando…</h1>
+    <p class="c-sub" id="cSub"></p>
+    <div class="c-meta" id="cMeta"></div>
+  </div>
+</header>
+
+<section class="cover">
+  <div class="wrap"><img id="cCover" src="" alt="" /></div>
+</section>
+
+<section class="c-body">
+  <div class="wrap c-grid">
+    <aside class="c-side reveal" id="cSide"></aside>
+    <div class="c-main reveal" id="cMain"></div>
+  </div>
+</section>
+
+<section class="board">
+  <div class="wrap">
+    <div class="b-head reveal"><span class="l">Apresentação do projeto</span></div>
+    <div class="board-stack reveal" id="cBoard"></div>
+  </div>
+</section>
+
+<footer class="c-foot">
+  <div class="wrap">
+    <div class="top">
+      <h2>Gostou? Vamos criar o <em>seu</em> também.</h2>
+      <div class="next">
+        <span class="l">Próximo projeto</span>
+        <a id="cNext" href="#">—<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+      </div>
+    </div>
+    <div class="cta-row">
+      <a href="index.html#contato" class="btn btn-primary" data-calendly>Agendar um papo de 20 min<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 14v2.2l1.6 1"/><path d="M16 2v4"/><path d="M21 7.5V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h3.5"/><path d="M3 10h5"/><path d="M8 2v4"/><circle cx="16" cy="16" r="6"/></svg></a>
+    </div>
+    <div class="bottom">
+      <span class="brand"><img src="assets/logo/logo_white_01.png" alt="Simple Design" height="36" style="width:auto;display:block"></span>
+      <span>© <span id="year"></span> · Todos os direitos reservados.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  /* ordem para navegação "próximo projeto" */
+  var ORDER = ["deguste","doseugosto","eadplataforma","futpalmeirense","internnova","moodcafe","pessoar","smartboxbr","studiolabcreate","utilipets","valormed"];
+
+  /* base de dados dos cases (cases reais do portfólio)
+     cover = imagem principal (destaque, recorte 16:9)
+     board = apresentação longa estilo Behance: imagens em largura total e
+             altura natural (sem corte), na ordem da pasta do case. */
+  var DATA = {
+    deguste:{cat:"Branding",title:"Deguste",sub:"Criação de identidade visual completa para marca do setor alimentício focada em experiências gastronômicas autorais.",
+      client:"Deguste",year:"2023",services:"Identidade Visual · Logo Design · Papelaria",tags:["Identidade Visual","Logo Design","Papelaria"],
+      cover:"assets/images/case_deguste/deguste_img_01.webp",
+      board:["assets/images/case_deguste/deguste_img_01.webp","assets/images/case_deguste/deguste_img_02.webp","assets/images/case_deguste/deguste_img_03.webp","assets/images/case_deguste/deguste_img_04.webp","assets/images/case_deguste/deguste_img_05.webp","assets/images/case_deguste/deguste_img_06.webp"],
+      sobre:"A Deguste nasceu com uma proposta clara: transformar a experiência de comer em algo memorável. Para isso, precisava de uma marca à altura dessa ambição. O projeto partiu do conceito de refinamento acessível — elegância sem arrogância, sofisticação sem distância.",
+      desafio:"Criar uma identidade que comunicasse qualidade gastronômica de forma visualmente impactante, diferenciando a marca em um mercado saturado e conectando-se emocionalmente com o público.",
+      solucao:"Desenvolvemos um sistema visual baseado em tipografia expressiva, paleta de cores que remete ao prazer sensorial e elementos gráficos que evocam o universo culinário sem clichês. O resultado é uma marca que desperta apetite e desejo antes mesmo da primeira garfada."},
+    doseugosto:{cat:"Branding",title:"Do Seu Gosto",sub:"Identidade visual para restaurante de cozinha saudável com linguagem contemporânea e autêntica.",
+      client:"Do Seu Gosto",year:"2023",services:"Identidade Visual · Logo Design · Embalagens",tags:["Identidade Visual","Logo Design","Embalagens"],
+      cover:"assets/images/case_doseugosto/doseugosto_img_01.webp",
+      board:["assets/images/case_doseugosto/doseugosto_img_01.webp","assets/images/case_doseugosto/doseugosto_img_02.webp","assets/images/case_doseugosto/doseugosto_img_03.webp","assets/images/case_doseugosto/doseugosto_img_04.webp","assets/images/case_doseugosto/doseugosto_img_05.webp"],
+      sobre:"O Do Seu Gosto surgiu para provar que comer bem não precisa ser chato. Um restaurante de cozinha saudável que celebra os sabores naturais com criatividade e personalidade. A marca precisava refletir esse equilíbrio: leveza, autenticidade e muita vida.",
+      desafio:"Traduzir o conceito de alimentação saudável de forma visualmente atraente, fugindo dos clichês do 'verde e clean' que dominam o segmento, para criar algo com personalidade própria.",
+      solucao:"A identidade foi construída em torno de formas orgânicas e uma paleta vibrante que celebra os ingredientes naturais. A tipografia escolhida traz personalidade sem perder a legibilidade, criando uma marca que é ao mesmo tempo apetitosa e confiável."},
+    eadplataforma:{cat:"Site",title:"EAD Plataforma",sub:"Marca para plataforma de ensino a distância que conecta design estratégico com a missão de democratizar o aprendizado.",
+      client:"EAD Plataforma",year:"2023",services:"Identidade Visual · UI Design · Site",tags:["Identidade Visual","UI Design","Site"],
+      cover:"assets/images/case_eadplataforma/eadplataforma_img_01.jpg",
+      board:["assets/images/case_eadplataforma/eadplataforma_img_01.jpg","assets/images/case_eadplataforma/eadplataforma_img_02.jpg","assets/images/case_eadplataforma/eadplataforma_img_03.jpg","assets/images/case_eadplataforma/eadplataforma_img_04.jpg","assets/images/case_eadplataforma/eadplataforma_img_05.jpg"],
+      sobre:"A EAD Plataforma tem como missão tornar a educação de qualidade acessível para todos. Em um mercado de e-learning cada vez mais competitivo, a marca precisava transmitir confiança, modernidade e o calor humano que diferencia uma plataforma das demais.",
+      desafio:"Criar uma identidade que equilibrasse profissionalismo institucional com acolhimento, comunicando tanto para instituições de ensino quanto para alunos, sem perder consistência.",
+      solucao:"Desenvolvemos um sistema visual moderno com uso estratégico de cores que transmitem confiança e energia. O logo foi pensado para funcionar em múltiplos contextos digitais, e os elementos de apoio criam uma linguagem visual coesa e escalável."},
+    futpalmeirense:{cat:"Social Media",title:"Fut Palmeirense",sub:"Criação de conteúdo visual para página de futebol do Palmeiras com identidade editorial consistente.",
+      client:"Fut Palmeirense",year:"2024",services:"Social Media Design · Conteúdo Editorial · Motion Graphics",tags:["Social Media Design","Conteúdo Editorial","Motion Graphics"],
+      cover:"assets/images/case_futpalmeirense/futpalmeirense_img_01.jpg",
+      board:["assets/images/case_futpalmeirense/futpalmeirense_img_01.jpg","assets/images/case_futpalmeirense/futpalmeirense_img_02.jpg","assets/images/case_futpalmeirense/futpalmeirense_img_03.jpg","assets/images/case_futpalmeirense/futpalmeirense_img_04.jpg","assets/images/case_futpalmeirense/futpalmeirense_img_05.jpg"],
+      sobre:"O futebol é paixão, e a paixão exige design à altura. O projeto Fut Palmeirense surgiu para levar a experiência visual das redes sociais ao nível dos maiores clubes do mundo, com conteúdo que emociona, informa e engaja a torcida alviverde.",
+      desafio:"Criar uma linha editorial visual consistente que respeitasse a identidade do Palmeiras enquanto trazia inovação e personalidade própria, gerando alto engajamento nas publicações.",
+      solucao:"Criamos templates editáveis com identidade visual forte, paleta baseada no verde e branco do clube com elementos que trazem energia e movimento. Cada post foi pensado para parar o scroll e gerar identificação imediata com a torcida."},
+    internnova:{cat:"Site",title:"Internnova",sub:"Identidade visual para empresa de inovação e tecnologia com marca sólida e contemporânea.",
+      client:"Internnova",year:"2023",services:"Identidade Visual · Logo Design · Site",tags:["Identidade Visual","Logo Design","Site"],
+      cover:"assets/images/case_Internnova/Internnova_img_01.webp",
+      board:["assets/images/case_Internnova/Internnova_img_01.webp","assets/images/case_Internnova/Internnova_img_02.webp","assets/images/case_Internnova/Internnova_img_03.webp","assets/images/case_Internnova/Internnova_img_04.webp","assets/images/case_Internnova/Internnova_img_05.webp"],
+      sobre:"A Internnova atua na intersecção entre tecnologia e inovação empresarial. Para uma empresa que vende transformação, a marca precisava ser ela mesma transformadora — moderna, confiável e com uma personalidade que transmitisse competência sem frieza.",
+      desafio:"Criar uma marca que posicionasse a Internnova como referência em inovação, diferenciando-se de concorrentes do setor tech sem cair no visual genérico de empresas de tecnologia.",
+      solucao:"A identidade foi construída sobre o conceito de conexão e movimento. O símbolo remete a fluxos e sistemas interligados, enquanto a paleta une seriedade corporativa com energia inovadora. O sistema completo inclui papelaria, apresentações e aplicações digitais."},
+    moodcafe:{cat:"Branding",title:"Mood Café",sub:"Construção completa de marca para cafeteria artesanal que une personalidade, atmosfera e design.",
+      client:"Mood Café",year:"2024",services:"Branding Completo · Logo Design · Embalagens · Papelaria",tags:["Branding Completo","Logo Design","Embalagens","Papelaria"],
+      cover:"assets/images/case_moodcafe/moodcafe_img_01.webp",
+      board:["assets/images/case_moodcafe/moodcafe_img_01.webp","assets/images/case_moodcafe/moodcafe_img_02.webp","assets/images/case_moodcafe/moodcafe_img_03.webp","assets/images/case_moodcafe/moodcafe_img_04.webp"],
+      sobre:"O Mood Café nasceu com uma proposta: ser mais que uma cafeteria. Um espaço de experiências, onde cada detalhe — do copo ao ambiente — conta uma história. A marca precisava capturar esse mood (humor, atmosfera) e traduzir em linguagem visual memorável.",
+      desafio:"Desenvolver uma identidade que comunicasse a personalidade única do espaço, criando conexão emocional com o público e se destacando em um mercado de cafeterias cada vez mais visual.",
+      solucao:"Criamos uma identidade com forte caráter tipográfico e elementos artesanais que remetem ao ritual do café. A paleta equilibra tons quentes e neutros sofisticados, e o sistema de aplicações garante consistência em embalagens, uniformes e comunicação digital."},
+    pessoar:{cat:"Site",title:"Pessoar",sub:"Identidade visual para empresa focada em pessoas e desenvolvimento humano com linguagem acolhedora e profissional.",
+      client:"Pessoar",year:"2023",services:"Identidade Visual · Logo Design · Site",tags:["Identidade Visual","Logo Design","Site"],
+      cover:"assets/images/case_pessoar/pessoar_img_01.webp",
+      board:["assets/images/case_pessoar/pessoar_img_01.webp","assets/images/case_pessoar/pessoar_img_02.webp","assets/images/case_pessoar/pessoar_img_03.webp","assets/images/case_pessoar/pessoar_img_04.webp","assets/images/case_pessoar/pessoar_img_05.webp","assets/images/case_pessoar/pessoar_img_06.webp"],
+      sobre:"A Pessoar é uma empresa que coloca as pessoas no centro de tudo. Atuando com gestão de talentos e desenvolvimento humano, precisava de uma identidade que transmitisse acolhimento, profissionalismo e a crença genuína no potencial de cada indivíduo.",
+      desafio:"Traduzir conceitos abstratos como 'desenvolvimento humano' e 'potencial' em uma identidade visual tangível e emocionalmente ressonante, sem cair em clichês do setor de RH.",
+      solucao:"A marca foi construída em torno de formas que remetem a pessoas e conexões humanas. A paleta traz calor e confiança, e a tipografia equilibra proximidade e profissionalismo. O resultado é uma identidade que abraça e inspira ao mesmo tempo."},
+    smartboxbr:{cat:"Site & Social Media",title:"SmartBox",sub:"Site institucional e presença digital para startup de vending machines e minimercados autônomos corporativos.",
+      client:"SmartBox",year:"2026",services:"Web Design · Desenvolvimento de Site · Social Media Design · Gestão de Redes Sociais",tags:["Web Design","Desenvolvimento de Site","Social Media Design","Gestão de Redes Sociais"],
+      cover:"assets/images/case_smartboxbr/smartboxbr_img_01.jpg",
+      board:["assets/images/case_smartboxbr/smartboxbr_img_01.jpg","assets/images/case_smartboxbr/smartboxbr_img_02.jpg","assets/images/case_smartboxbr/smartboxbr_img_03.jpg","assets/images/case_smartboxbr/smartboxbr_img_04.jpg","assets/images/case_smartboxbr/smartboxbr_img_05.jpg"],
+      sobre:"A SmartBox chegou para transformar a conveniência no ambiente de trabalho. Com vending machines e minimercados autônomos instalados dentro de empresas, condomínios e academias — sem custo de instalação para o cliente — a startup precisava de uma presença digital que estivesse à altura da inovação que entrega. O projeto envolveu a criação do site institucional completo e a estruturação da identidade visual nas redes sociais.",
+      desafio:"A SmartBox opera em um mercado ainda pouco conhecido no Brasil — o varejo autônomo corporativo. O desafio foi comunicar um modelo de negócio inovador de forma clara e persuasiva para dois públicos distintos: gestores e RHs de empresas que precisam entender o produto, e colaboradores que serão os usuários finais. O site precisava gerar propostas, e o social media precisava educar e engajar.",
+      solucao:"Para o site, desenvolvemos uma estrutura focada em conversão: hierarquia visual clara, seções que respondem às principais dúvidas do decisor corporativo, FAQ estratégico e CTAs diretos para solicitação de proposta personalizada. A linguagem une tecnologia e praticidade, refletindo os pilares da marca: inovação inteligente, qualidade de produtos e possibilidade de personalização por empresa. Para o social media, criamos uma linha editorial que equilibra conteúdo educativo sobre o modelo de negócio, bastidores de instalações e peças de geração de demanda — tudo com identidade visual consistente para o Instagram @brsmartbox e LinkedIn."},
+    studiolabcreate:{cat:"Branding",title:"Studio Lab Create",sub:"Identidade de marca para estúdio criativo com conceito de laboratório de ideias ousado e experimental.",
+      client:"Studio Lab Create",year:"2024",services:"Brand Identity · Logo Design · Sistema Visual",tags:["Brand Identity","Logo Design","Sistema Visual"],
+      cover:"assets/images/case_studiolabcreate/studiolabcreate_img_01.webp",
+      board:["assets/images/case_studiolabcreate/studiolabcreate_img_01.webp","assets/images/case_studiolabcreate/studiolabcreate_img_02.webp","assets/images/case_studiolabcreate/studiolabcreate_img_03.png","assets/images/case_studiolabcreate/studiolabcreate_img_04.webp","assets/images/case_studiolabcreate/studiolabcreate_img_05.webp"],
+      sobre:"O Studio Lab Create é um espaço onde criatividade e experimentação se encontram. Para um estúdio que vive de criar o novo, a identidade precisava ser um manifesto visual — ousada, original e que gerasse identificação imediata com o universo criativo.",
+      desafio:"Criar uma marca que posicionasse o estúdio como referência criativa, com identidade suficientemente forte para competir visualmente com grandes players do mercado de design e comunicação.",
+      solucao:"Desenvolvemos uma identidade modular e experimental, com elementos que se combinam de formas diferentes criando variações sem perder consistência. O visual remete a processos de criação, rascunhos e a energia de um laboratório de ideias em constante movimento."},
+    utilipets:{cat:"Branding",title:"Utilipets",sub:"Branding para empresa pet com identidade que transmite cuidado, confiança e amor pelos animais.",
+      client:"Utilipets",year:"2023",services:"Branding Completo · Logo Design · Embalagens · Papelaria",tags:["Branding Completo","Logo Design","Embalagens","Papelaria"],
+      cover:"assets/images/case_utilipets/utilipets_img_01.png",
+      board:["assets/images/case_utilipets/utilipets_img_01.png","assets/images/case_utilipets/utilipets_img_02.png","assets/images/case_utilipets/utilipets_img_03.png","assets/images/case_utilipets/utilipets_img_04.png"],
+      sobre:"A Utilipets atua no mercado pet com uma proposta de cuidado verdadeiro. Em um segmento onde o apelo emocional é fundamental, a marca precisava comunicar tanto a qualidade dos produtos quanto o amor genuíno pelos animais que guia cada decisão da empresa.",
+      desafio:"Criar uma identidade que se conectasse emocionalmente com tutores de pets, transmitindo confiança e carinho sem perder o posicionamento profissional da marca.",
+      solucao:"A identidade foi construída com uma linguagem visual calorosa e amigável, com ilustrações e formas que remetem ao universo pet de forma criativa. A paleta de cores traz energia e afeto, e o sistema de embalagens garante reconhecimento nas prateleiras."},
+    valormed:{cat:"Site",title:"Valor Med",sub:"Identidade visual e site para empresa do setor de saúde equilibrando credibilidade institucional com comunicação humana.",
+      client:"Valor Med",year:"2024",services:"Identidade Visual · Site",tags:["Identidade Visual","Site"],
+      cover:"assets/images/case_valormed/valormed_img_03.jpg",
+      board:["assets/images/case_valormed/valormed_img_01.jpg","assets/images/case_valormed/valormed_img_02.jpg","assets/images/case_valormed/valormed_img_03.jpg"],
+      sobre:"A Valormed atua no setor de saúde com a missão de valorizar cada etapa do cuidado médico. Para uma empresa que lida com algo tão essencial quanto a saúde, a identidade precisava transmitir segurança, credibilidade e ao mesmo tempo proximidade humana.",
+      desafio:"Equilibrar o rigor e a seriedade do setor de saúde com uma comunicação mais acessível e humana, criando uma marca que inspire confiança em profissionais de saúde e pacientes.",
+      solucao:"Desenvolvemos uma identidade limpa e profissional, com elementos que remetem à precisão e ao cuidado. A paleta combina tons que transmitem saúde e confiança, e o sistema visual funciona com igual eficácia em aplicações físicas e digitais."}
+  };
+
+  function getParam(){
+    var m = window.location.search.match(/[?&]p=([^&]+)/);
+    return m ? decodeURIComponent(m[1]) : null;
+  }
+
+  var slug = getParam();
+  var c = (slug && DATA[slug]) ? DATA[slug] : DATA[ORDER[0]];
+  if(slug && DATA[slug]) { /* válido */ } else { slug = ORDER[0]; }
+
+  /* preenche o conteúdo */
+  document.title = c.title + " · Thiago — Designer";
+  document.getElementById("cBadge").textContent = c.cat;
+  document.getElementById("cTitle").textContent = c.title;
+  document.getElementById("cSub").textContent = c.sub;
+
+  var cover = document.getElementById("cCover");
+  cover.src = c.cover; cover.alt = "Imagem de capa do projeto " + c.title;
+
+  document.getElementById("cMeta").innerHTML =
+    '<div class="m"><div class="l">Cliente</div><div class="v">'+c.client+'</div></div>'+
+    '<div class="m"><div class="l">Ano</div><div class="v">'+c.year+'</div></div>'+
+    '<div class="m"><div class="l">Serviços</div><div class="v">'+c.services+'</div></div>';
+
+  document.getElementById("cSide").innerHTML =
+    '<div class="row"><div class="l">Cliente</div><div class="v">'+c.client+'</div></div>'+
+    '<div class="row"><div class="l">Ano</div><div class="v">'+c.year+'</div></div>'+
+    '<div class="row"><div class="l">Entregáveis</div><div class="tags">'+
+      c.tags.map(function(t){return '<span>'+t+'</span>';}).join('')+'</div></div>';
+
+  document.getElementById("cMain").innerHTML =
+    '<div class="block"><h2>Sobre o projeto</h2><p>'+c.sobre+'</p></div>'+
+    '<div class="block"><h2>O desafio</h2><p>'+c.desafio+'</p></div>'+
+    '<div class="block"><h2>A solução</h2><p>'+c.solucao+'</p></div>';
+
+  var board = c.board || [];
+  document.getElementById("cBoard").innerHTML = board.map(function(src,i){
+    return '<img src="'+src+'" alt="'+c.title+' — apresentação '+(i+1)+'" loading="lazy">';
+  }).join('');
+
+  /* próximo projeto */
+  var idx = ORDER.indexOf(slug);
+  var nextSlug = ORDER[(idx + 1) % ORDER.length];
+  var nextC = DATA[nextSlug];
+  var nextEl = document.getElementById("cNext");
+  nextEl.href = "case.html?p=" + nextSlug;
+  nextEl.innerHTML = nextC.title.split("—")[0].trim() + '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>';
+
+  /* reveal */
+  var revealEls = [].slice.call(document.querySelectorAll(".reveal"));
+  if(reduceMotion || !("IntersectionObserver" in window)){
+    revealEls.forEach(function(el){ el.classList.add("in-view"); });
+  } else {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add("in-view"); io.unobserve(en.target); } });
+    }, {threshold:0.12, rootMargin:"0px 0px -8% 0px"});
+    revealEls.forEach(function(el){ io.observe(el); });
+  }
+})();
+</script>
+
+<script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+<script src="fx.js"></script>
+</body>
+</html>

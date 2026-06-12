@@ -1,0 +1,34 @@
+/* ============================================================
+   FX compartilhado — cursor custom, botões magnéticos,
+   transição de página. Usado por index.html, case.html e projetos.html
+   ============================================================ */
+
+/* entrada da página (fade) */
+body{transition:opacity .55s var(--ease,ease)}
+html.pg-enter body{opacity:0}
+
+/* overlay de saída (wipe vertical) */
+.pt{position:fixed;top:0;left:0;width:100%;height:100%;z-index:10000;background:var(--accent,#FF5A2C);transform:translateY(-100%);pointer-events:none;will-change:transform}
+.pt.cover{transform:translateY(0);transition:transform .5s cubic-bezier(.7,0,.3,1)}
+
+/* cursor custom (somente ponteiro fino) */
+.cur,.cur-dot{position:fixed;top:0;left:0;z-index:10001;pointer-events:none;border-radius:50%;mix-blend-mode:difference;will-change:transform;opacity:0}
+.cur{width:34px;height:34px;border:1.5px solid #fff;transform:translate(-50%,-50%);transition:width .25s var(--ease,ease),height .25s var(--ease,ease),opacity .3s}
+.cur-dot{width:6px;height:6px;background:#fff;transform:translate(-50%,-50%);transition:opacity .3s}
+.has-cursor .cur,.has-cursor .cur-dot{opacity:1}
+.cur.grow{width:66px;height:66px;border-color:#fff}
+.has-cursor,.has-cursor a,.has-cursor button,.has-cursor .case,.has-cursor .filter,.has-cursor summary,.has-cursor .qa-q{cursor:none}
+.has-cursor input,.has-cursor textarea,.has-cursor select{cursor:auto}
+
+/* alvos magnéticos */
+[data-magnetic]{will-change:transform}
+
+@media (hover:none),(pointer:coarse){
+  .cur,.cur-dot{display:none !important}
+}
+@media (prefers-reduced-motion:reduce){
+  body{transition:none}
+  html.pg-enter body{opacity:1}
+  .pt{display:none}
+  .cur,.cur-dot{display:none}
+}

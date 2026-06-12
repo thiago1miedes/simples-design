@@ -1,0 +1,305 @@
+/* ============================================================
+   BRIEFING — formulário público multi-step
+   Reaproveita a identidade visual do index.html (mesmos tokens).
+   ============================================================ */
+:root{
+  --ink:#0C0C0E;
+  --ink-2:#141417;
+  --paper:#F2EFE8;
+  --paper-2:#E9E5DB;
+
+  --on-dark:#ECE9E2;
+  --on-dark-mut:#8E8B84;
+  --on-light:#15130E;
+  --on-light-mut:#5B584F;
+
+  --accent:#FF5A2C;
+  --accent-deep:#D8421B;
+
+  --line-dark:rgba(236,233,226,.14);
+  --line-light:rgba(21,19,14,.14);
+
+  --r:16px;
+  --r-lg:28px;
+  --r-pill:999px;
+
+  --maxw:1240px;
+  --pad:clamp(20px,5vw,72px);
+
+  --ease:cubic-bezier(.22,.61,.36,1);
+  --ease-out:cubic-bezier(.16,1,.3,1);
+
+  --font-display:"Bricolage Grotesque",serif;
+  --font-body:"Hanken Grotesk",system-ui,sans-serif;
+}
+
+/* ---------- reset / base ---------- */
+*{box-sizing:border-box;margin:0;padding:0;min-width:0}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{animation:none !important;transition:none !important}
+}
+body{
+  font-family:var(--font-body);
+  background:var(--ink);
+  color:var(--on-dark);
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+  line-height:1.55;
+  width:100%;max-width:100%;overflow-x:hidden;
+}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
+::selection{background:var(--accent);color:#fff}
+
+/* film grain — igual ao index.html */
+body::after{
+  content:"";position:fixed;inset:0;z-index:9999;pointer-events:none;
+  opacity:.05;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* scroll progress */
+.progress{position:fixed;top:0;left:0;height:2px;width:0;background:var(--accent);z-index:1000;transition:width .1s linear}
+
+/* ---------- layout helpers ---------- */
+.wrap{max-width:var(--maxw);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
+.wrap-narrow{max-width:760px;margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
+
+.eyebrow{
+  font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;
+  font-weight:600;display:inline-flex;align-items:center;gap:.6em;color:var(--accent);
+}
+.eyebrow::before{content:"";width:28px;height:1px;background:currentColor;opacity:.6;display:inline-block}
+
+/* ---------- buttons (mesmo padrão do index) ---------- */
+.btn{
+  position:relative;display:inline-flex;align-items:center;gap:.6em;
+  padding:.95em 1.5em;border-radius:var(--r-pill);
+  font-weight:600;letter-spacing:.01em;overflow:hidden;
+  transition:transform .4s var(--ease-out),color .4s var(--ease),opacity .3s;
+  isolation:isolate;min-height:48px;
+}
+.btn svg{transition:transform .4s var(--ease-out)}
+.btn::before{
+  content:"";position:absolute;inset:0;z-index:-1;border-radius:inherit;
+  transform:translateY(101%);transition:transform .5s var(--ease-out);
+}
+.btn:hover{transform:translateY(-2px)}
+.btn:hover svg{transform:translate(3px,-3px)}
+.btn:hover::before{transform:translateY(0)}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-primary::before{background:var(--accent-deep)}
+.btn-ghost{border:1px solid var(--line-dark);color:var(--on-dark)}
+.btn-ghost::before{background:var(--on-dark)}
+.btn-ghost:hover{color:var(--ink)}
+.btn:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.btn[disabled]{opacity:.6;pointer-events:none}
+
+/* ---------- nav (igual ao index, versão enxuta) ---------- */
+.nav{
+  position:fixed;top:14px;left:12px;right:12px;margin:0 auto;max-width:var(--maxw);
+  z-index:900;display:flex;align-items:center;justify-content:space-between;
+  padding:.65rem .75rem .65rem 1.2rem;border-radius:var(--r-pill);
+  background:rgba(12,12,14,.72);backdrop-filter:blur(16px);
+  border:1px solid var(--line-dark);box-sizing:border-box;
+}
+.brand{
+  font-family:var(--font-display);font-weight:700;font-size:1.05rem;letter-spacing:-.02em;
+  display:flex;align-items:center;gap:.5em;flex-shrink:0;min-width:0;
+}
+.nav-back{
+  padding:.5rem .9rem;border-radius:var(--r-pill);font-size:.88rem;font-weight:500;
+  white-space:nowrap;display:inline-flex;align-items:center;gap:.5em;
+  border:1px solid var(--line-dark);transition:.35s var(--ease);
+}
+.nav-back:hover{background:var(--on-dark);color:var(--ink);border-color:var(--on-dark)}
+.nav-back svg{transition:transform .35s var(--ease-out)}
+.nav-back:hover svg{transform:translateX(-3px)}
+
+/* ============================================================
+   HERO do briefing
+   ============================================================ */
+.bf-hero{
+  position:relative;padding:clamp(120px,18vw,170px) 0 clamp(2.5rem,5vw,3.5rem);
+  overflow:hidden;
+}
+.bf-hero::before{
+  content:"";position:absolute;inset:-20% 0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(40% 50% at 18% 25%,rgba(255,90,44,.16),transparent 70%),
+    radial-gradient(45% 55% at 88% 60%,rgba(120,140,255,.10),transparent 70%);
+  filter:blur(10px);animation:bf-drift 22s var(--ease) infinite alternate;
+}
+@keyframes bf-drift{0%{transform:translateY(0) scale(1)}100%{transform:translateY(3%) scale(1.08)}}
+.bf-hero .wrap-narrow{position:relative;z-index:1}
+.bf-hero h1{
+  font-family:var(--font-display);font-weight:600;
+  font-size:clamp(2.3rem,6vw,4rem);line-height:1;letter-spacing:-.03em;margin-top:1rem;
+  text-wrap:balance;
+}
+.bf-hero p.lead{margin-top:1.4rem;max-width:52ch;color:var(--on-dark-mut);font-size:clamp(1.02rem,2vw,1.18rem)}
+
+/* ---------- step indicator (3 bolinhas + linha) ---------- */
+.stepper{display:flex;align-items:flex-start;gap:0;margin-top:2.6rem;max-width:560px}
+.stepper .node{display:flex;flex-direction:column;align-items:center;gap:.7rem;flex:0 0 auto;width:54px;text-align:center}
+.stepper .dot{
+  width:42px;height:42px;border-radius:50%;display:grid;place-items:center;
+  border:1px solid var(--line-dark);background:var(--ink-2);
+  font-family:var(--font-display);font-weight:600;font-size:1rem;color:var(--on-dark-mut);
+  transition:background .45s var(--ease),border-color .45s var(--ease),color .45s var(--ease),transform .45s var(--ease-out);
+}
+.stepper .label{font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--on-dark-mut);transition:color .45s var(--ease);max-width:9ch;line-height:1.25}
+.stepper .bar{flex:1 1 auto;height:1px;background:var(--line-dark);margin-top:21px;position:relative;overflow:hidden}
+.stepper .bar::after{content:"";position:absolute;inset:0;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .5s var(--ease)}
+.stepper .node.active .dot{border-color:var(--accent);color:var(--accent);transform:scale(1.06)}
+.stepper .node.active .label{color:var(--on-dark)}
+.stepper .node.done .dot{background:var(--accent);border-color:var(--accent);color:#fff}
+.stepper .node.done .label{color:var(--on-dark)}
+.stepper .bar.filled::after{transform:scaleX(1)}
+
+/* ============================================================
+   FORM (multi-step)
+   ============================================================ */
+.bf-form-wrap{padding:clamp(2rem,4vw,3rem) 0 clamp(4rem,8vw,6rem)}
+.bf-form{display:block}
+.step-panel{display:none}
+.step-panel.active{display:block;animation:bf-fade .5s var(--ease) forwards}
+@keyframes bf-fade{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+
+.step-title{font-family:var(--font-display);font-weight:600;font-size:clamp(1.5rem,3.4vw,2.1rem);letter-spacing:-.02em;line-height:1.05;margin-bottom:.5rem}
+.step-desc{color:var(--on-dark-mut);margin-bottom:2rem;max-width:50ch}
+
+/* campos — mesmo visual do form do index, com glow ao focar */
+.field{position:relative;margin-bottom:1.3rem}
+.field label{display:block;font-size:.82rem;letter-spacing:.04em;color:var(--on-dark-mut);margin-bottom:.5rem;font-weight:600}
+.field .req{color:var(--accent)}
+.input,.select,.textarea{
+  width:100%;padding:.95em 1.1em;border-radius:var(--r);min-height:48px;
+  background:rgba(236,233,226,.04);border:1px solid var(--line-dark);
+  color:var(--on-dark);font:inherit;
+  transition:border-color .3s,background .3s,box-shadow .3s;
+}
+.textarea{resize:vertical;min-height:120px}
+.input::placeholder,.textarea::placeholder{color:rgba(142,139,132,.7)}
+.input:focus,.select:focus,.textarea:focus{
+  outline:none;border-color:var(--accent);background:rgba(236,233,226,.06);
+  box-shadow:0 0 0 3px rgba(255,90,44,.14);
+}
+.select{
+  appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' stroke='%238E8B84' stroke-width='2'%3E%3Cpath d='M4 6l4 4 4-4'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 1.1em center;padding-right:2.6em;
+}
+.select option{background:var(--ink-2);color:var(--on-dark)}
+.row-2{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem}
+.field-error{color:var(--accent);font-size:.8rem;margin-top:.4rem;display:none}
+.field.invalid .input,.field.invalid .select,.field.invalid .textarea{border-color:var(--accent)}
+.field.invalid .field-error{display:block}
+
+/* ---------- cards de serviço (step 2) ---------- */
+.svc-question{font-family:var(--font-display);font-weight:600;font-size:clamp(1.3rem,2.6vw,1.7rem);letter-spacing:-.01em;margin-bottom:1.4rem}
+.svc-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
+.svc-card{
+  position:relative;padding:1.6rem 1.4rem;border:1px solid var(--line-dark);border-radius:var(--r-lg);
+  background:var(--ink-2);cursor:pointer;display:flex;flex-direction:column;gap:.6rem;
+  transition:border-color .35s var(--ease),transform .45s var(--ease-out),background .35s;
+}
+.svc-card:hover{transform:translateY(-4px);border-color:rgba(236,233,226,.32)}
+.svc-card input{position:absolute;opacity:0;pointer-events:none}
+.svc-card .ico{font-size:1.9rem;line-height:1}
+.svc-card .ttl{font-family:var(--font-display);font-weight:600;font-size:1.15rem;letter-spacing:-.01em}
+.svc-card .sub{font-size:.88rem;color:var(--on-dark-mut)}
+.svc-card .check{
+  position:absolute;top:1.2rem;right:1.2rem;width:24px;height:24px;border-radius:50%;
+  border:1px solid var(--line-dark);display:grid;place-items:center;
+  transition:.3s var(--ease);opacity:0;transform:scale(.6);
+}
+.svc-card .check svg{width:13px;height:13px;color:#fff}
+.svc-card.selected{border-color:var(--accent);background:rgba(255,90,44,.07)}
+.svc-card.selected .check{background:var(--accent);border-color:var(--accent);opacity:1;transform:none}
+
+/* ---------- step 3: seções dinâmicas ---------- */
+.dyn-section{
+  margin-bottom:2.2rem;padding-top:.4rem;
+  animation:bf-fade .45s var(--ease) forwards;
+}
+.dyn-divider{
+  display:flex;align-items:center;gap:1rem;margin:0 0 1.6rem;
+}
+.dyn-divider .tag{
+  font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;font-weight:700;
+  color:var(--accent);display:inline-flex;align-items:center;gap:.5em;white-space:nowrap;
+}
+.dyn-divider .line{flex:1;height:1px;background:var(--line-dark)}
+
+/* grupos de checkbox / radio em "pílulas" */
+.choice-grid{display:flex;flex-wrap:wrap;gap:.6rem}
+.choice{
+  position:relative;display:inline-flex;align-items:center;gap:.5em;
+  padding:.6em 1.05em;border-radius:var(--r-pill);border:1px solid var(--line-dark);
+  background:rgba(236,233,226,.03);font-size:.9rem;font-weight:500;cursor:pointer;
+  transition:border-color .3s var(--ease),background .3s,color .3s;
+}
+.choice input{position:absolute;opacity:0;pointer-events:none}
+.choice:hover{border-color:rgba(236,233,226,.3)}
+.choice.selected{border-color:var(--accent);background:rgba(255,90,44,.1);color:#fff}
+
+/* ---------- navegação do form ---------- */
+.bf-nav{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-top:2.4rem;flex-wrap:wrap}
+.bf-nav .spacer{flex:1}
+
+/* spinner no submit */
+.spinner{
+  width:16px;height:16px;border-radius:50%;
+  border:2px solid rgba(255,255,255,.45);border-top-color:#fff;
+  animation:spin .7s linear infinite;display:none;
+}
+.btn.loading .spinner{display:inline-block}
+.btn.loading .btn-label,.btn.loading svg.arrow{display:none}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* erro de envio */
+.send-error{
+  display:none;align-items:center;gap:.6em;margin-top:1.4rem;padding:1em 1.2em;border-radius:var(--r);
+  border:1px solid rgba(255,90,44,.45);background:rgba(255,90,44,.08);color:#ffc7b4;font-size:.92rem;
+}
+.send-error.show{display:flex}
+
+/* ---------- tela de sucesso ---------- */
+.bf-success{display:none;text-align:center;padding:clamp(2rem,6vw,4rem) 0}
+.bf-success.show{display:block;animation:bf-fade .6s var(--ease) forwards}
+.bf-success .seal{
+  width:84px;height:84px;border-radius:50%;margin:0 auto 1.8rem;display:grid;place-items:center;
+  background:rgba(95,208,122,.1);border:1px solid rgba(95,208,122,.4);
+  animation:seal-pop .6s var(--ease-out) forwards;
+}
+.bf-success .seal svg{width:38px;height:38px;color:#5fd07a}
+@keyframes seal-pop{0%{transform:scale(.5);opacity:0}60%{transform:scale(1.08)}100%{transform:scale(1);opacity:1}}
+.bf-success h2{font-family:var(--font-display);font-weight:600;font-size:clamp(1.9rem,4vw,2.8rem);letter-spacing:-.02em;line-height:1.05}
+.bf-success p{color:var(--on-dark-mut);margin:1rem auto 2.2rem;max-width:42ch}
+
+/* ---------- reveal (mesmo padrão do index) ---------- */
+.reveal{opacity:0;transform:translateY(34px);transition:opacity .9s var(--ease-out),transform .9s var(--ease-out)}
+.reveal.in-view{opacity:1;transform:none}
+.reveal[data-d="1"]{transition-delay:.08s}
+.reveal[data-d="2"]{transition-delay:.16s}
+
+/* ============================================================
+   RESPONSIVO
+   ============================================================ */
+@media (max-width:640px){
+  .svc-grid{grid-template-columns:1fr}
+  .row-2{grid-template-columns:1fr}
+  .stepper{gap:0}
+  .stepper .node{width:46px}
+  .stepper .label{font-size:.64rem}
+  .bf-nav{flex-direction:column-reverse;align-items:stretch}
+  .bf-nav .btn{width:100%;justify-content:center}
+  .bf-nav .spacer{display:none}
+}
+@media (hover:none),(pointer:coarse){
+  .cur,.cur-dot{display:none !important}
+}

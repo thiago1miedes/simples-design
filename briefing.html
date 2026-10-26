@@ -6,8 +6,8 @@
 <title>Briefing · Simple Design</title>
 <link rel="icon" href="assets/icons/logo_icon_01.png" type="image/png">
 <link rel="apple-touch-icon" href="assets/icons/logo_icon_01.png">
-<meta name="theme-color" content="#0C0C0E">
-<meta name="description" content="Preencha o briefing do seu projeto com a Simple Design — site, identidade visual ou redes sociais." />
+<meta name="theme-color" content="#F2EFE8">
+<meta name="description" content="Preencha o briefing do seu projeto com a Simple Design — site, identidade visual e redes sociais." />
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,6 +19,7 @@
 <body>
 
 <div class="progress" id="progress" aria-hidden="true"></div>
+<div class="sr-only" id="liveRegion" role="status" aria-live="polite"></div>
 
 <!-- NAV -->
 <nav class="nav" aria-label="Navegação">
@@ -36,24 +37,22 @@
   <div class="wrap-narrow">
     <span class="eyebrow reveal">Briefing</span>
     <h1 class="reveal" data-d="1">Vamos começar o<br>seu projeto.</h1>
-    <p class="lead reveal" data-d="2">Preencha as informações abaixo. Leva menos de 5 minutos e nos ajuda a preparar uma proposta certeira para você.</p>
+    <p class="lead reveal" data-d="2">Conte sobre você, sua empresa e a sua marca. São 6 etapas rápidas — cada resposta nos ajuda a preparar uma proposta certeira para você.</p>
+    <p class="req-note reveal" data-d="2">Só os campos com <span class="req" aria-hidden="true">*</span><span class="sr-only">asterisco</span> são obrigatórios. Quanto mais você contar, melhor fica a proposta.</p>
 
-    <!-- step indicator -->
-    <div class="stepper reveal" data-d="2" id="stepper" aria-hidden="true">
-      <div class="node" data-node="1">
-        <span class="dot">1</span>
-        <span class="label">Sobre você</span>
-      </div>
-      <span class="bar" data-bar="1"></span>
-      <div class="node" data-node="2">
-        <span class="dot">2</span>
-        <span class="label">O projeto</span>
-      </div>
-      <span class="bar" data-bar="2"></span>
-      <div class="node" data-node="3">
-        <span class="dot">3</span>
-        <span class="label">Detalhes</span>
-      </div>
+    <!-- indicador de etapas -->
+    <div class="stepper reveal" data-d="2" id="stepper" role="group" aria-label="Etapas do briefing">
+      <button type="button" class="node" data-node="1" aria-label="Etapa 1: Você"><span class="dot">1</span><span class="label">Você</span></button>
+      <span class="bar" data-bar="1" aria-hidden="true"></span>
+      <button type="button" class="node" data-node="2" aria-label="Etapa 2: Empresa"><span class="dot">2</span><span class="label">Empresa</span></button>
+      <span class="bar" data-bar="2" aria-hidden="true"></span>
+      <button type="button" class="node" data-node="3" aria-label="Etapa 3: Marca"><span class="dot">3</span><span class="label">Marca</span></button>
+      <span class="bar" data-bar="3" aria-hidden="true"></span>
+      <button type="button" class="node" data-node="4" aria-label="Etapa 4: Serviços"><span class="dot">4</span><span class="label">Serviços</span></button>
+      <span class="bar" data-bar="4" aria-hidden="true"></span>
+      <button type="button" class="node" data-node="5" aria-label="Etapa 5: Detalhes"><span class="dot">5</span><span class="label">Detalhes</span></button>
+      <span class="bar" data-bar="5" aria-hidden="true"></span>
+      <button type="button" class="node" data-node="6" aria-label="Etapa 6: Arquivos"><span class="dot">6</span><span class="label">Arquivos</span></button>
     </div>
   </div>
 </header>
@@ -62,35 +61,61 @@
 <section class="bf-form-wrap">
   <div class="wrap-narrow">
 
+    <!-- aviso de rascunho restaurado -->
+    <div class="draft-note" id="draftNote" hidden>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l4 2"/></svg>
+      <p>Restauramos o que você já tinha preenchido. <span class="muted" id="draftFiles" hidden>Os arquivos precisam ser selecionados de novo.</span></p>
+      <button type="button" class="link-btn" id="draftReset">Começar do zero</button>
+    </div>
+
     <form class="bf-form" id="briefingForm" novalidate>
 
-      <!-- ============ STEP 1 — SOBRE VOCÊ ============ -->
-      <div class="step-panel active" data-step="1">
-        <h2 class="step-title">Sobre você</h2>
-        <p class="step-desc">Como podemos te chamar e onde te encontrar.</p>
+      <!-- ============ ETAPA 1 — VOCÊ ============ -->
+      <section class="step-panel active" data-step="1" aria-labelledby="step1-title">
+        <p class="step-count">Etapa 1 de 6</p>
+        <h2 class="step-title" id="step1-title" tabindex="-1">Sobre você</h2>
+        <p class="step-desc">Como podemos te chamar e qual a melhor forma de falar com você.</p>
 
         <div class="field">
-          <label for="nome">Nome completo <span class="req">*</span></label>
-          <input class="input" type="text" id="nome" name="nome" autocomplete="name" required>
-          <span class="field-error">Por favor, informe seu nome.</span>
+          <label for="nome">Nome completo <span class="req" aria-hidden="true">*</span></label>
+          <input class="input" type="text" id="nome" name="nome" autocomplete="name" required aria-describedby="nome-erro">
+          <span class="field-error" id="nome-erro">Por favor, informe seu nome.</span>
         </div>
 
         <div class="row-2">
           <div class="field">
-            <label for="email">E-mail <span class="req">*</span></label>
-            <input class="input" type="email" id="email" name="email" autocomplete="email" required>
-            <span class="field-error">Informe um e-mail válido.</span>
+            <label for="email">E-mail <span class="req" aria-hidden="true">*</span></label>
+            <input class="input" type="email" id="email" name="email" autocomplete="email" inputmode="email" autocapitalize="off" spellcheck="false" required aria-describedby="email-erro">
+            <span class="field-error" id="email-erro">Informe um e-mail válido.</span>
           </div>
           <div class="field">
             <label for="whatsapp">WhatsApp</label>
-            <input class="input" type="tel" id="whatsapp" name="whatsapp" inputmode="tel" placeholder="(00) 00000-0000" maxlength="16">
-            <span class="field-error">Número incompleto.</span>
+            <input class="input" type="tel" id="whatsapp" name="whatsapp" autocomplete="tel-national" inputmode="tel" placeholder="(00) 00000-0000" maxlength="16" aria-describedby="whatsapp-erro">
+            <span class="field-error" id="whatsapp-erro">Número incompleto — inclua o DDD.</span>
           </div>
         </div>
 
         <div class="field">
-          <label for="empresa">Nome da empresa ou projeto</label>
-          <input class="input" type="text" id="empresa" name="empresa" autocomplete="organization" placeholder="Opcional">
+          <label for="cargo">Seu cargo ou função</label>
+          <input class="input" type="text" id="cargo" name="cargo" autocomplete="organization-title" placeholder="Ex: sócia, gerente de marketing…">
+        </div>
+
+        <fieldset class="field">
+          <legend>Como prefere que a gente fale com você?</legend>
+          <div class="choice-grid" data-radio="contato_preferido">
+            <label class="choice"><input type="radio" name="contato_preferido" value="WhatsApp">WhatsApp</label>
+            <label class="choice"><input type="radio" name="contato_preferido" value="E-mail">E-mail</label>
+            <label class="choice"><input type="radio" name="contato_preferido" value="Ligação">Ligação</label>
+            <label class="choice"><input type="radio" name="contato_preferido" value="Videochamada">Videochamada</label>
+          </div>
+        </fieldset>
+
+        <div class="field">
+          <label for="como_conheceu">Como conheceu a Simple Design?</label>
+          <select class="select" id="como_conheceu" name="como_conheceu">
+            <option value="">Selecione…</option>
+            <option>Instagram</option><option>Indicação</option><option>Google</option><option>Behance / Dribbble</option><option>LinkedIn</option><option>Já sou cliente</option><option>Outro</option>
+          </select>
         </div>
 
         <div class="bf-nav">
@@ -100,48 +125,126 @@
             <svg class="arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
           </button>
         </div>
-      </div>
+      </section>
 
-      <!-- ============ STEP 2 — O QUE VOCÊ PRECISA ============ -->
-      <div class="step-panel" data-step="2">
-        <h2 class="step-title">O que você precisa?</h2>
-        <p class="step-desc">Selecione um ou mais serviços. O <strong>Combo</strong> já inclui tudo.</p>
+      <!-- ============ ETAPA 2 — EMPRESA ============ -->
+      <section class="step-panel" data-step="2" aria-labelledby="step2-title">
+        <p class="step-count">Etapa 2 de 6</p>
+        <h2 class="step-title" id="step2-title" tabindex="-1">Sua empresa</h2>
+        <p class="step-desc">Conte um pouco sobre o negócio — é isso que guia as decisões de design.</p>
 
-        <p class="svc-question">O que você quer desenvolver?</p>
-        <div class="svc-grid" id="svcGrid">
-          <label class="svc-card" data-svc="site">
-            <input type="checkbox" name="servico" value="site">
-            <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
-            <span class="ico">🌐</span>
-            <span class="ttl">Site / Landing Page</span>
-            <span class="sub">Um site que converte visitantes em clientes.</span>
-          </label>
-
-          <label class="svc-card" data-svc="identidade">
-            <input type="checkbox" name="servico" value="identidade">
-            <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
-            <span class="ico">🎨</span>
-            <span class="ttl">Identidade Visual</span>
-            <span class="sub">Logo, cores e uma marca memorável.</span>
-          </label>
-
-          <label class="svc-card" data-svc="social">
-            <input type="checkbox" name="servico" value="social">
-            <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
-            <span class="ico">📱</span>
-            <span class="ttl">Redes Sociais</span>
-            <span class="sub">Conteúdo e presença que constroem audiência.</span>
-          </label>
-
-          <label class="svc-card" data-svc="combo">
-            <input type="checkbox" name="servico" value="combo">
-            <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
-            <span class="ico">✨</span>
-            <span class="ttl">Tudo acima (Combo)</span>
-            <span class="sub">Site + identidade + redes sociais, juntos.</span>
-          </label>
+        <div class="field">
+          <label for="empresa">Nome da empresa, marca ou projeto <span class="req" aria-hidden="true">*</span></label>
+          <input class="input" type="text" id="empresa" name="empresa" autocomplete="organization" required aria-describedby="empresa-dica empresa-erro">
+          <span class="field-hint" id="empresa-dica">Se for uma marca pessoal, pode usar o seu nome.</span>
+          <span class="field-error" id="empresa-erro">Informe o nome da empresa, marca ou projeto.</span>
         </div>
-        <span class="field-error" id="svcError">Selecione pelo menos um serviço.</span>
+
+        <div class="row-2">
+          <div class="field">
+            <label for="segmento">Segmento / área de atuação</label>
+            <input class="input" type="text" id="segmento" name="segmento" placeholder="Ex: odontologia, moda, restaurante…">
+          </div>
+          <div class="field">
+            <label for="cidade">Cidade / estado</label>
+            <input class="input" type="text" id="cidade" name="cidade" autocomplete="address-level2" placeholder="Ex: Curitiba / PR">
+          </div>
+        </div>
+
+        <div class="row-2">
+          <div class="field">
+            <label for="tempo_mercado">Tempo de mercado</label>
+            <select class="select" id="tempo_mercado" name="tempo_mercado">
+              <option value="">Selecione…</option>
+              <option>Ainda vou abrir</option><option>Menos de 1 ano</option><option>1 a 3 anos</option><option>3 a 10 anos</option><option>Mais de 10 anos</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="tamanho_equipe">Tamanho da equipe</label>
+            <select class="select" id="tamanho_equipe" name="tamanho_equipe">
+              <option value="">Selecione…</option>
+              <option>Só eu</option><option>2 a 5 pessoas</option><option>6 a 20 pessoas</option><option>Mais de 20 pessoas</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="descricao_negocio">O que a empresa faz? Conte em poucas linhas</label>
+          <textarea class="textarea" id="descricao_negocio" name="descricao_negocio" rows="3"></textarea>
+        </div>
+        <div class="field">
+          <label for="produtos_servicos">Principais produtos ou serviços</label>
+          <textarea class="textarea" id="produtos_servicos" name="produtos_servicos" rows="3"></textarea>
+        </div>
+        <div class="field">
+          <label for="publico_alvo">Quem é o seu cliente ideal?</label>
+          <textarea class="textarea" id="publico_alvo" name="publico_alvo" rows="3" placeholder="Idade, região, interesses, comportamento…"></textarea>
+        </div>
+        <div class="field">
+          <label for="diferenciais">O que te diferencia da concorrência?</label>
+          <textarea class="textarea" id="diferenciais" name="diferenciais" rows="3"></textarea>
+        </div>
+        <div class="field">
+          <label for="concorrentes">Concorrentes ou marcas parecidas (nomes ou links)</label>
+          <textarea class="textarea" id="concorrentes" name="concorrentes" rows="3"></textarea>
+        </div>
+        <div class="field">
+          <label for="missao_valores">Missão, valores ou propósito (se tiver)</label>
+          <textarea class="textarea" id="missao_valores" name="missao_valores" rows="3"></textarea>
+        </div>
+
+        <!-- presença online -->
+        <div class="dyn-divider sub"><h3 class="tag">Presença online</h3><span class="line"></span></div>
+        <p class="block-desc">Onde a sua empresa já aparece? Pode colar o link completo ou só o @.</p>
+
+        <div class="row-2">
+          <div class="field">
+            <label for="link_site">Site</label>
+            <div class="input-ico">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+              <input class="input" type="text" inputmode="url" id="link_site" name="link_site" autocomplete="url" autocapitalize="off" spellcheck="false" placeholder="suaempresa.com.br">
+            </div>
+          </div>
+          <div class="field">
+            <label for="link_instagram">Instagram</label>
+            <div class="input-ico">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><path d="M17.5 6.5h.01"/></svg>
+              <input class="input" type="text" inputmode="url" id="link_instagram" name="link_instagram" autocapitalize="off" spellcheck="false" placeholder="@suaempresa ou link">
+            </div>
+          </div>
+          <div class="field">
+            <label for="link_facebook">Facebook</label>
+            <div class="input-ico">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+              <input class="input" type="text" inputmode="url" id="link_facebook" name="link_facebook" autocapitalize="off" spellcheck="false" placeholder="facebook.com/suaempresa">
+            </div>
+          </div>
+          <div class="field">
+            <label for="link_tiktok">TikTok</label>
+            <div class="input-ico">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 12a4 4 0 1 0 4 4V2a5 5 0 0 0 5 5"/></svg>
+              <input class="input" type="text" inputmode="url" id="link_tiktok" name="link_tiktok" autocapitalize="off" spellcheck="false" placeholder="@suaempresa">
+            </div>
+          </div>
+          <div class="field">
+            <label for="link_linkedin">LinkedIn</label>
+            <div class="input-ico">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+              <input class="input" type="text" inputmode="url" id="link_linkedin" name="link_linkedin" autocapitalize="off" spellcheck="false" placeholder="linkedin.com/company/…">
+            </div>
+          </div>
+          <div class="field">
+            <label for="link_youtube">YouTube</label>
+            <div class="input-ico">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"/><path d="m10 15 5-3-5-3z"/></svg>
+              <input class="input" type="text" inputmode="url" id="link_youtube" name="link_youtube" autocapitalize="off" spellcheck="false" placeholder="youtube.com/@suaempresa">
+            </div>
+          </div>
+        </div>
+        <div class="field">
+          <label for="link_outros">Outros links — Google Meu Negócio, Behance, cardápio, catálogo…</label>
+          <textarea class="textarea" id="link_outros" name="link_outros" rows="3" autocapitalize="off" spellcheck="false" placeholder="Um link por linha"></textarea>
+        </div>
 
         <div class="bf-nav">
           <button type="button" class="btn btn-ghost" data-prev>
@@ -154,37 +257,268 @@
             <svg class="arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
           </button>
         </div>
-      </div>
+      </section>
 
-      <!-- ============ STEP 3 — DETALHES (dinâmico) ============ -->
-      <div class="step-panel" data-step="3">
-        <h2 class="step-title">Detalhes do projeto</h2>
-        <p class="step-desc">Quanto mais contexto, mais certeira fica a nossa proposta.</p>
+      <!-- ============ ETAPA 3 — MARCA ============ -->
+      <section class="step-panel" data-step="3" aria-labelledby="step3-title">
+        <p class="step-count">Etapa 3 de 6</p>
+        <h2 class="step-title" id="step3-title" tabindex="-1">Sua marca hoje</h2>
+        <p class="step-desc">Se você já tem uma marca, queremos conhecê-la: logo, cores, materiais. Se ainda não tem, tudo bem.</p>
+
+        <fieldset class="field">
+          <legend>Qual é a situação da sua marca?</legend>
+          <div class="choice-grid choice-cards" data-radio="marca_situacao">
+            <label class="choice choice-card"><input type="radio" name="marca_situacao" value="Tenho marca e quero manter"><span class="cc-ttl">Tenho marca e quero manter</span><span class="cc-sub">Ela segue igual, só preciso aplicar em novos materiais.</span></label>
+            <label class="choice choice-card"><input type="radio" name="marca_situacao" value="Tenho marca e quero modernizar"><span class="cc-ttl">Tenho marca e quero modernizar</span><span class="cc-sub">Um refresh, sem perder a essência.</span></label>
+            <label class="choice choice-card"><input type="radio" name="marca_situacao" value="Tenho marca e quero mudar tudo"><span class="cc-ttl">Tenho marca e quero mudar tudo</span><span class="cc-sub">Uma identidade nova, do começo.</span></label>
+            <label class="choice choice-card"><input type="radio" name="marca_situacao" value="Ainda não tenho marca"><span class="cc-ttl">Ainda não tenho marca</span><span class="cc-sub">Vamos criar juntos, do zero.</span></label>
+          </div>
+        </fieldset>
+
+        <div class="note-box" id="marcaNova" hidden>
+          <span class="note-ico" aria-hidden="true">✦</span>
+          <p>Tudo bem! Vamos criar do zero — na etapa <strong>Serviços</strong>, escolha <strong>Identidade Visual</strong>.</p>
+        </div>
+
+        <div class="cond-block" id="marcaAtual">
+          <div class="dyn-divider sub"><h3 class="tag">Sua marca atual</h3><span class="line"></span></div>
+
+          <div class="upload" data-slot="logo">
+            <span class="upload-label">Logo atual</span>
+            <label class="dropzone">
+              <input type="file" class="sr-only" multiple>
+              <span class="dz-ico" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14.9A7 7 0 1 1 15.7 8h1.8a4.5 4.5 0 0 1 2.5 8.24"/><path d="M12 12v9"/><path d="m16 16-4-4-4 4"/></svg></span>
+              <span class="dz-title"><span class="dz-fine">Arraste arquivos ou <u>clique para escolher</u></span><span class="dz-touch"><u>Toque para escolher arquivos</u></span></span>
+              <span class="dz-hint">PNG, JPG, SVG, PDF, AI, EPS, PSD, CDR, WEBP, ZIP · até 8 MB cada · máx. 6 arquivos</span>
+            </label>
+            <p class="upload-help">Envie o arquivo original se tiver: AI, EPS, SVG, PDF ou PNG. Pode mandar variações — horizontal, vertical, símbolo, versão branca.</p>
+            <ul class="file-list"></ul>
+            <p class="upload-error" role="alert"></p>
+          </div>
+
+          <div class="field">
+            <label for="marca_slogan">Slogan ou frase da marca</label>
+            <input class="input" type="text" id="marca_slogan" name="marca_slogan">
+          </div>
+
+          <div class="row-2">
+            <div class="field">
+              <label for="marca_cores">Cores da marca hoje</label>
+              <input class="input" type="text" id="marca_cores" name="marca_cores" placeholder="Ex: azul-marinho e dourado, ou códigos #1A2B3C">
+            </div>
+            <div class="field">
+              <label for="marca_fontes">Fontes / tipografia que usa (se souber)</label>
+              <input class="input" type="text" id="marca_fontes" name="marca_fontes">
+            </div>
+          </div>
+
+          <fieldset class="field">
+            <legend>Tem manual de marca?</legend>
+            <div class="choice-grid" data-radio="marca_manual">
+              <label class="choice"><input type="radio" name="marca_manual" value="Sim">Sim</label>
+              <label class="choice"><input type="radio" name="marca_manual" value="Não">Não</label>
+              <label class="choice"><input type="radio" name="marca_manual" value="Não sei">Não sei</label>
+            </div>
+          </fieldset>
+
+          <div class="upload" data-slot="manual">
+            <span class="upload-label">Manual de marca / brandbook</span>
+            <label class="dropzone">
+              <input type="file" class="sr-only" multiple>
+              <span class="dz-ico" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14.9A7 7 0 1 1 15.7 8h1.8a4.5 4.5 0 0 1 2.5 8.24"/><path d="M12 12v9"/><path d="m16 16-4-4-4 4"/></svg></span>
+              <span class="dz-title"><span class="dz-fine">Arraste arquivos ou <u>clique para escolher</u></span><span class="dz-touch"><u>Toque para escolher arquivos</u></span></span>
+              <span class="dz-hint">PDF, PNG, JPG, ZIP, PPTX · até 8 MB cada · máx. 3 arquivos</span>
+            </label>
+            <p class="upload-help">Se a sua marca tem um guia com regras de uso, cores e fontes, ele vale ouro para nós.</p>
+            <ul class="file-list"></ul>
+            <p class="upload-error" role="alert"></p>
+          </div>
+
+          <div class="field">
+            <label for="marca_gosta">O que você gosta na sua marca atual?</label>
+            <textarea class="textarea" id="marca_gosta" name="marca_gosta" rows="3"></textarea>
+          </div>
+          <div class="field">
+            <label for="marca_nao_gosta">O que você não gosta ou quer mudar?</label>
+            <textarea class="textarea" id="marca_nao_gosta" name="marca_nao_gosta" rows="3"></textarea>
+          </div>
+          <div class="field">
+            <label for="marca_manter">Algum elemento que precisa ser mantido? (símbolo, cor, nome…)</label>
+            <textarea class="textarea" id="marca_manter" name="marca_manter" rows="3"></textarea>
+          </div>
+
+          <div class="upload" data-slot="materiais">
+            <span class="upload-label">Materiais que você já usa</span>
+            <label class="dropzone">
+              <input type="file" class="sr-only" multiple>
+              <span class="dz-ico" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14.9A7 7 0 1 1 15.7 8h1.8a4.5 4.5 0 0 1 2.5 8.24"/><path d="M12 12v9"/><path d="m16 16-4-4-4 4"/></svg></span>
+              <span class="dz-title"><span class="dz-fine">Arraste arquivos ou <u>clique para escolher</u></span><span class="dz-touch"><u>Toque para escolher arquivos</u></span></span>
+              <span class="dz-hint">PNG, JPG, WEBP, HEIC, PDF · até 8 MB cada · máx. 8 arquivos</span>
+            </label>
+            <p class="upload-help">Fotos ou PDFs de cartão, folder, fachada, embalagem, posts… nos ajuda a entender a marca aplicada.</p>
+            <ul class="file-list"></ul>
+            <p class="upload-error" role="alert"></p>
+          </div>
+        </div>
+
+        <div class="bf-nav">
+          <button type="button" class="btn btn-ghost" data-prev>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+            <span>Voltar</span>
+          </button>
+          <span class="spacer"></span>
+          <button type="button" class="btn btn-primary" data-next>
+            <span class="btn-label">Próximo</span>
+            <svg class="arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </button>
+        </div>
+      </section>
+
+      <!-- ============ ETAPA 4 — SERVIÇOS ============ -->
+      <section class="step-panel" data-step="4" aria-labelledby="step4-title">
+        <p class="step-count">Etapa 4 de 6</p>
+        <h2 class="step-title" id="step4-title" tabindex="-1">O que você precisa?</h2>
+        <p class="step-desc">Escolha um, dois ou todos os serviços. Na próxima etapa fazemos perguntas específicas para cada um.</p>
+
+        <fieldset class="svc-fieldset">
+          <legend class="svc-question">O que você quer desenvolver? <span class="req" aria-hidden="true">*</span></legend>
+          <div class="svc-grid" id="svcGrid">
+            <label class="svc-card" data-svc="site">
+              <input type="checkbox" name="servico" value="site" aria-describedby="svcError">
+              <span class="check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+              <span class="ico" aria-hidden="true">🌐</span>
+              <span class="ttl">Site / Landing Page</span>
+              <span class="sub">Um site que converte visitantes em clientes.</span>
+            </label>
+
+            <label class="svc-card" data-svc="identidade">
+              <input type="checkbox" name="servico" value="identidade" aria-describedby="svcError">
+              <span class="check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+              <span class="ico" aria-hidden="true">🎨</span>
+              <span class="ttl">Identidade Visual</span>
+              <span class="sub">Logo, cores e uma marca memorável.</span>
+            </label>
+
+            <label class="svc-card" data-svc="social">
+              <input type="checkbox" name="servico" value="social" aria-describedby="svcError">
+              <span class="check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+              <span class="ico" aria-hidden="true">📱</span>
+              <span class="ttl">Redes Sociais</span>
+              <span class="sub">Conteúdo e presença que constroem audiência.</span>
+            </label>
+
+            <button type="button" class="svc-all" id="svcAll" aria-pressed="false">
+              <span class="ico" aria-hidden="true">✨</span>
+              <span class="txt">
+                <span class="ttl">Quero tudo</span>
+                <span class="sub">Selecionar todos os serviços — site, identidade e redes sociais.</span>
+              </span>
+              <span class="check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+            </button>
+          </div>
+        </fieldset>
+        <span class="field-error svc-error" id="svcError" role="alert">Selecione pelo menos um serviço.</span>
+
+        <div class="bf-nav">
+          <button type="button" class="btn btn-ghost" data-prev>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+            <span>Voltar</span>
+          </button>
+          <span class="spacer"></span>
+          <button type="button" class="btn btn-primary" data-next>
+            <span class="btn-label">Próximo</span>
+            <svg class="arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </button>
+        </div>
+      </section>
+
+      <!-- ============ ETAPA 5 — DETALHES (dinâmico) ============ -->
+      <section class="step-panel" data-step="5" aria-labelledby="step5-title">
+        <p class="step-count">Etapa 5 de 6</p>
+        <h2 class="step-title" id="step5-title" tabindex="-1">Detalhes do projeto</h2>
+        <p class="step-desc">Perguntas específicas para cada serviço que você escolheu. Responda o que souber — o resto a gente conversa.</p>
 
         <!-- SEÇÃO SITE -->
         <div class="dyn-section" data-section="site" hidden>
-          <div class="dyn-divider"><span class="tag">🌐 Site / Landing Page</span><span class="line"></span></div>
+          <div class="dyn-divider"><h3 class="tag"><span aria-hidden="true">🌐</span> Site / Landing Page</h3><span class="line"></span></div>
+
+          <fieldset class="field">
+            <legend>Que tipo de site você precisa?</legend>
+            <div class="choice-grid" data-check="site_tipo">
+              <label class="choice"><input type="checkbox" name="site_tipo" value="Landing page">Landing page</label>
+              <label class="choice"><input type="checkbox" name="site_tipo" value="Site institucional">Site institucional</label>
+              <label class="choice"><input type="checkbox" name="site_tipo" value="Loja virtual">Loja virtual</label>
+              <label class="choice"><input type="checkbox" name="site_tipo" value="Portfólio">Portfólio</label>
+              <label class="choice"><input type="checkbox" name="site_tipo" value="Blog">Blog</label>
+              <label class="choice"><input type="checkbox" name="site_tipo" value="Outro">Outro</label>
+            </div>
+          </fieldset>
 
           <div class="field">
             <label for="site_objetivo">Qual o objetivo principal do site?</label>
-            <textarea class="textarea" id="site_objetivo" name="site_objetivo" placeholder="Ex: gerar orçamentos, vender online, apresentar o portfólio…"></textarea>
+            <textarea class="textarea" id="site_objetivo" name="site_objetivo" rows="3" placeholder="Ex: gerar orçamentos, vender online, apresentar o portfólio…"></textarea>
           </div>
           <div class="field">
             <label for="site_paginas">Quais páginas você imagina?</label>
-            <textarea class="textarea" id="site_paginas" name="site_paginas" placeholder="Ex: Home, Sobre, Serviços, Contato…"></textarea>
+            <textarea class="textarea" id="site_paginas" name="site_paginas" rows="3" placeholder="Ex: Home, Sobre, Serviços, Contato…"></textarea>
           </div>
-          <div class="field">
-            <label for="site_referencias">Você tem referências de sites que admira?</label>
-            <textarea class="textarea" id="site_referencias" name="site_referencias" placeholder="Cole links ou descreva o estilo"></textarea>
+
+          <fieldset class="field">
+            <legend>Funcionalidades que o site precisa ter</legend>
+            <div class="choice-grid" data-check="site_funcionalidades">
+              <label class="choice"><input type="checkbox" name="site_funcionalidades" value="Formulário de contato">Formulário de contato</label>
+              <label class="choice"><input type="checkbox" name="site_funcionalidades" value="Botão de WhatsApp">Botão de WhatsApp</label>
+              <label class="choice"><input type="checkbox" name="site_funcionalidades" value="Blog">Blog</label>
+              <label class="choice"><input type="checkbox" name="site_funcionalidades" value="Agendamento online">Agendamento online</label>
+              <label class="choice"><input type="checkbox" name="site_funcionalidades" value="Pagamentos">Pagamentos</label>
+              <label class="choice"><input type="checkbox" name="site_funcionalidades" value="Catálogo de produtos">Catálogo de produtos</label>
+              <label class="choice"><input type="checkbox" name="site_funcionalidades" value="Área do cliente">Área do cliente</label>
+              <label class="choice"><input type="checkbox" name="site_funcionalidades" value="Feed do Instagram">Feed do Instagram</label>
+              <label class="choice"><input type="checkbox" name="site_funcionalidades" value="Newsletter">Newsletter</label>
+              <label class="choice"><input type="checkbox" name="site_funcionalidades" value="Mais de um idioma">Mais de um idioma</label>
+            </div>
+          </fieldset>
+
+          <fieldset class="field">
+            <legend>Você já tem o conteúdo do site?</legend>
+            <div class="choice-grid" data-radio="site_tem_conteudo">
+              <label class="choice"><input type="radio" name="site_tem_conteudo" value="Já tenho textos e fotos">Já tenho textos e fotos</label>
+              <label class="choice"><input type="radio" name="site_tem_conteudo" value="Tenho parte do conteúdo">Tenho parte do conteúdo</label>
+              <label class="choice"><input type="radio" name="site_tem_conteudo" value="Preciso de ajuda com o conteúdo">Preciso de ajuda com o conteúdo</label>
+            </div>
+          </fieldset>
+
+          <div class="upload" data-slot="site_conteudo">
+            <span class="upload-label">Textos e conteúdo do site</span>
+            <label class="dropzone">
+              <input type="file" class="sr-only" multiple>
+              <span class="dz-ico" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14.9A7 7 0 1 1 15.7 8h1.8a4.5 4.5 0 0 1 2.5 8.24"/><path d="M12 12v9"/><path d="m16 16-4-4-4 4"/></svg></span>
+              <span class="dz-title"><span class="dz-fine">Arraste arquivos ou <u>clique para escolher</u></span><span class="dz-touch"><u>Toque para escolher arquivos</u></span></span>
+              <span class="dz-hint">PDF, DOC, DOCX, TXT, PPTX, PNG, JPG · até 8 MB cada · máx. 5 arquivos</span>
+            </label>
+            <p class="upload-help">Documentos com textos, cardápio, lista de serviços…</p>
+            <ul class="file-list"></ul>
+            <p class="upload-error" role="alert"></p>
           </div>
+
           <div class="field">
-            <label>Você já tem domínio e hospedagem?</label>
+            <label for="site_referencias">Sites que você admira (links)</label>
+            <textarea class="textarea" id="site_referencias" name="site_referencias" rows="3" placeholder="Cole links ou descreva o estilo"></textarea>
+          </div>
+
+          <fieldset class="field">
+            <legend>Você já tem domínio e hospedagem?</legend>
             <div class="choice-grid" data-radio="site_tem_dominio">
               <label class="choice"><input type="radio" name="site_tem_dominio" value="Sim">Sim</label>
               <label class="choice"><input type="radio" name="site_tem_dominio" value="Não">Não</label>
               <label class="choice"><input type="radio" name="site_tem_dominio" value="Não sei">Não sei</label>
             </div>
+          </fieldset>
+          <div class="field" id="siteDominioField" hidden>
+            <label for="site_dominio">Qual domínio?</label>
+            <input class="input" type="text" inputmode="url" id="site_dominio" name="site_dominio" autocapitalize="off" spellcheck="false" placeholder="suaempresa.com.br">
           </div>
+
           <div class="row-2">
             <div class="field">
               <label for="site_prazo">Prazo desejado</label>
@@ -205,44 +539,61 @@
 
         <!-- SEÇÃO IDENTIDADE -->
         <div class="dyn-section" data-section="identidade" hidden>
-          <div class="dyn-divider"><span class="tag">🎨 Identidade Visual</span><span class="line"></span></div>
+          <div class="dyn-divider"><h3 class="tag"><span aria-hidden="true">🎨</span> Identidade Visual</h3><span class="line"></span></div>
+
+          <fieldset class="field">
+            <legend>O nome da marca já está definido?</legend>
+            <div class="choice-grid" data-radio="id_nome_definido">
+              <label class="choice"><input type="radio" name="id_nome_definido" value="Sim, nome definido">Sim, nome definido</label>
+              <label class="choice"><input type="radio" name="id_nome_definido" value="Ainda não">Ainda não</label>
+              <label class="choice"><input type="radio" name="id_nome_definido" value="Quero ajuda com o nome">Quero ajuda com o nome</label>
+            </div>
+          </fieldset>
+
+          <fieldset class="field">
+            <legend>O que você precisa receber?</legend>
+            <div class="choice-grid" data-check="id_entregaveis">
+              <label class="choice"><input type="checkbox" name="id_entregaveis" value="Logo">Logo</label>
+              <label class="choice"><input type="checkbox" name="id_entregaveis" value="Paleta de cores">Paleta de cores</label>
+              <label class="choice"><input type="checkbox" name="id_entregaveis" value="Tipografia">Tipografia</label>
+              <label class="choice"><input type="checkbox" name="id_entregaveis" value="Manual de marca">Manual de marca</label>
+              <label class="choice"><input type="checkbox" name="id_entregaveis" value="Cartão de visita">Cartão de visita</label>
+              <label class="choice"><input type="checkbox" name="id_entregaveis" value="Papelaria">Papelaria</label>
+              <label class="choice"><input type="checkbox" name="id_entregaveis" value="Kit para redes sociais">Kit para redes sociais</label>
+              <label class="choice"><input type="checkbox" name="id_entregaveis" value="Embalagem">Embalagem</label>
+              <label class="choice"><input type="checkbox" name="id_entregaveis" value="Fachada / sinalização">Fachada / sinalização</label>
+              <label class="choice"><input type="checkbox" name="id_entregaveis" value="Uniforme">Uniforme</label>
+              <label class="choice"><input type="checkbox" name="id_entregaveis" value="Apresentação comercial">Apresentação comercial</label>
+            </div>
+          </fieldset>
+
+          <fieldset class="field">
+            <legend>Como você quer que a sua marca seja percebida?</legend>
+            <div class="choice-grid" data-check="id_personalidade">
+              <label class="choice"><input type="checkbox" name="id_personalidade" value="Moderna">Moderna</label>
+              <label class="choice"><input type="checkbox" name="id_personalidade" value="Clássica">Clássica</label>
+              <label class="choice"><input type="checkbox" name="id_personalidade" value="Minimalista">Minimalista</label>
+              <label class="choice"><input type="checkbox" name="id_personalidade" value="Ousada">Ousada</label>
+              <label class="choice"><input type="checkbox" name="id_personalidade" value="Alegre">Alegre</label>
+              <label class="choice"><input type="checkbox" name="id_personalidade" value="Séria">Séria</label>
+              <label class="choice"><input type="checkbox" name="id_personalidade" value="Luxuosa">Luxuosa</label>
+              <label class="choice"><input type="checkbox" name="id_personalidade" value="Acessível">Acessível</label>
+            </div>
+          </fieldset>
 
           <div class="field">
-            <label for="id_segmento">Qual o segmento / área de atuação?</label>
-            <input class="input" type="text" id="id_segmento" name="id_segmento">
+            <label for="id_cores">Preferência de cores para a nova marca</label>
+            <textarea class="textarea" id="id_cores" name="id_cores" rows="3"></textarea>
           </div>
           <div class="field">
-            <label for="id_publico">Quem é o público-alvo?</label>
-            <textarea class="textarea" id="id_publico" name="id_publico" placeholder="Idade, interesses, comportamento…"></textarea>
+            <label for="id_evitar">O que você NÃO quer na marca? (cores, estilos, símbolos)</label>
+            <textarea class="textarea" id="id_evitar" name="id_evitar" rows="3"></textarea>
           </div>
           <div class="field">
-            <label>Como você quer que sua marca se sinta?</label>
-            <div class="choice-grid" data-check="id_personalidade">
-              <label class="choice"><input type="checkbox" value="Moderna">Moderna</label>
-              <label class="choice"><input type="checkbox" value="Clássica">Clássica</label>
-              <label class="choice"><input type="checkbox" value="Minimalista">Minimalista</label>
-              <label class="choice"><input type="checkbox" value="Ousada">Ousada</label>
-              <label class="choice"><input type="checkbox" value="Alegre">Alegre</label>
-              <label class="choice"><input type="checkbox" value="Séria">Séria</label>
-              <label class="choice"><input type="checkbox" value="Luxuosa">Luxuosa</label>
-              <label class="choice"><input type="checkbox" value="Acessível">Acessível</label>
-            </div>
+            <label for="id_referencias">Marcas ou referências visuais que você admira</label>
+            <textarea class="textarea" id="id_referencias" name="id_referencias" rows="3"></textarea>
           </div>
-          <div class="field">
-            <label for="id_cores">Tem alguma preferência de cores?</label>
-            <textarea class="textarea" id="id_cores" name="id_cores"></textarea>
-          </div>
-          <div class="field">
-            <label for="id_referencias">Referências visuais que você admira</label>
-            <textarea class="textarea" id="id_referencias" name="id_referencias"></textarea>
-          </div>
-          <div class="field">
-            <label>Você já tem logo?</label>
-            <div class="choice-grid" data-radio="id_tem_logo">
-              <label class="choice"><input type="radio" name="id_tem_logo" value="Sim, quero melhorar">Sim, quero melhorar</label>
-              <label class="choice"><input type="radio" name="id_tem_logo" value="Não, começo do zero">Não, começo do zero</label>
-            </div>
-          </div>
+
           <div class="row-2">
             <div class="field">
               <label for="id_prazo">Prazo desejado</label>
@@ -263,50 +614,97 @@
 
         <!-- SEÇÃO REDES SOCIAIS -->
         <div class="dyn-section" data-section="social" hidden>
-          <div class="dyn-divider"><span class="tag">📱 Redes Sociais</span><span class="line"></span></div>
+          <div class="dyn-divider"><h3 class="tag"><span aria-hidden="true">📱</span> Redes Sociais</h3><span class="line"></span></div>
+
+          <fieldset class="field">
+            <legend>Quais plataformas?</legend>
+            <div class="choice-grid" data-check="social_plataformas">
+              <label class="choice"><input type="checkbox" name="social_plataformas" value="Instagram">Instagram</label>
+              <label class="choice"><input type="checkbox" name="social_plataformas" value="TikTok">TikTok</label>
+              <label class="choice"><input type="checkbox" name="social_plataformas" value="LinkedIn">LinkedIn</label>
+              <label class="choice"><input type="checkbox" name="social_plataformas" value="Facebook">Facebook</label>
+              <label class="choice"><input type="checkbox" name="social_plataformas" value="Pinterest">Pinterest</label>
+              <label class="choice"><input type="checkbox" name="social_plataformas" value="YouTube">YouTube</label>
+              <label class="choice"><input type="checkbox" name="social_plataformas" value="Outra">Outra</label>
+            </div>
+          </fieldset>
+
+          <fieldset class="field">
+            <legend>O que você precisa para as redes?</legend>
+            <div class="choice-grid" data-check="social_servicos">
+              <label class="choice"><input type="checkbox" name="social_servicos" value="Posts de feed">Posts de feed</label>
+              <label class="choice"><input type="checkbox" name="social_servicos" value="Carrosséis">Carrosséis</label>
+              <label class="choice"><input type="checkbox" name="social_servicos" value="Stories">Stories</label>
+              <label class="choice"><input type="checkbox" name="social_servicos" value="Reels / vídeos curtos">Reels / vídeos curtos</label>
+              <label class="choice"><input type="checkbox" name="social_servicos" value="Capas de destaque">Capas de destaque</label>
+              <label class="choice"><input type="checkbox" name="social_servicos" value="Templates editáveis">Templates editáveis</label>
+              <label class="choice"><input type="checkbox" name="social_servicos" value="Calendário de conteúdo">Calendário de conteúdo</label>
+              <label class="choice"><input type="checkbox" name="social_servicos" value="Legendas / copy">Legendas / copy</label>
+            </div>
+          </fieldset>
+
+          <div class="row-2">
+            <div class="field">
+              <label for="social_seguidores">Quantos seguidores você tem hoje?</label>
+              <select class="select" id="social_seguidores" name="social_seguidores">
+                <option value="">Selecione…</option>
+                <option>Estou começando agora</option><option>Até 1 mil</option><option>1 mil a 10 mil</option><option>10 mil a 50 mil</option><option>Mais de 50 mil</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="social_frequencia">Frequência de postagem desejada</label>
+              <select class="select" id="social_frequencia" name="social_frequencia">
+                <option value="">Selecione…</option>
+                <option>Não sei</option><option>3x por semana</option><option>5x por semana</option><option>Diário</option>
+              </select>
+            </div>
+          </div>
+
+          <fieldset class="field">
+            <legend>Quem vai publicar os conteúdos?</legend>
+            <div class="choice-grid" data-radio="social_quem_publica">
+              <label class="choice"><input type="radio" name="social_quem_publica" value="Eu / minha equipe">Eu / minha equipe</label>
+              <label class="choice"><input type="radio" name="social_quem_publica" value="Quero que vocês publiquem">Quero que vocês publiquem</label>
+              <label class="choice"><input type="radio" name="social_quem_publica" value="Ainda não sei">Ainda não sei</label>
+            </div>
+          </fieldset>
+
+          <fieldset class="field">
+            <legend>Você tem fotos e vídeos próprios?</legend>
+            <div class="choice-grid" data-radio="social_conteudo_proprio">
+              <label class="choice"><input type="radio" name="social_conteudo_proprio" value="Sim, tenho fotos e vídeos">Sim, tenho fotos e vídeos</label>
+              <label class="choice"><input type="radio" name="social_conteudo_proprio" value="Tenho alguns">Tenho alguns</label>
+              <label class="choice"><input type="radio" name="social_conteudo_proprio" value="Não tenho">Não tenho</label>
+            </div>
+          </fieldset>
+
+          <fieldset class="field">
+            <legend>Objetivo das redes sociais</legend>
+            <div class="choice-grid" data-check="social_objetivo">
+              <label class="choice"><input type="checkbox" name="social_objetivo" value="Engajamento">Engajamento</label>
+              <label class="choice"><input type="checkbox" name="social_objetivo" value="Vendas">Vendas</label>
+              <label class="choice"><input type="checkbox" name="social_objetivo" value="Awareness de marca">Awareness de marca</label>
+              <label class="choice"><input type="checkbox" name="social_objetivo" value="Geração de leads">Geração de leads</label>
+              <label class="choice"><input type="checkbox" name="social_objetivo" value="Outro">Outro</label>
+            </div>
+          </fieldset>
+
+          <fieldset class="field">
+            <legend>Tom de comunicação</legend>
+            <div class="choice-grid" data-check="social_tom">
+              <label class="choice"><input type="checkbox" name="social_tom" value="Descontraído">Descontraído</label>
+              <label class="choice"><input type="checkbox" name="social_tom" value="Profissional">Profissional</label>
+              <label class="choice"><input type="checkbox" name="social_tom" value="Inspiracional">Inspiracional</label>
+              <label class="choice"><input type="checkbox" name="social_tom" value="Educativo">Educativo</label>
+              <label class="choice"><input type="checkbox" name="social_tom" value="Divertido">Divertido</label>
+            </div>
+          </fieldset>
 
           <div class="field">
-            <label>Quais plataformas?</label>
-            <div class="choice-grid" data-check="social_plataformas">
-              <label class="choice"><input type="checkbox" value="Instagram">Instagram</label>
-              <label class="choice"><input type="checkbox" value="TikTok">TikTok</label>
-              <label class="choice"><input type="checkbox" value="LinkedIn">LinkedIn</label>
-              <label class="choice"><input type="checkbox" value="Facebook">Facebook</label>
-              <label class="choice"><input type="checkbox" value="Pinterest">Pinterest</label>
-              <label class="choice"><input type="checkbox" value="Outra">Outra</label>
-            </div>
-          </div>
-          <div class="field">
-            <label for="social_frequencia">Frequência de postagem desejada</label>
-            <select class="select" id="social_frequencia" name="social_frequencia">
-              <option value="">Selecione…</option>
-              <option>Não sei</option><option>3x por semana</option><option>5x por semana</option><option>Diário</option>
-            </select>
-          </div>
-          <div class="field">
-            <label>Objetivo das redes sociais</label>
-            <div class="choice-grid" data-check="social_objetivo">
-              <label class="choice"><input type="checkbox" value="Engajamento">Engajamento</label>
-              <label class="choice"><input type="checkbox" value="Vendas">Vendas</label>
-              <label class="choice"><input type="checkbox" value="Awareness de marca">Awareness de marca</label>
-              <label class="choice"><input type="checkbox" value="Geração de leads">Geração de leads</label>
-              <label class="choice"><input type="checkbox" value="Outro">Outro</label>
-            </div>
-          </div>
-          <div class="field">
-            <label>Tom de comunicação</label>
-            <div class="choice-grid" data-check="social_tom">
-              <label class="choice"><input type="checkbox" value="Descontraído">Descontraído</label>
-              <label class="choice"><input type="checkbox" value="Profissional">Profissional</label>
-              <label class="choice"><input type="checkbox" value="Inspiracional">Inspiracional</label>
-              <label class="choice"><input type="checkbox" value="Educativo">Educativo</label>
-              <label class="choice"><input type="checkbox" value="Divertido">Divertido</label>
-            </div>
-          </div>
-          <div class="field">
             <label for="social_referencias">Referências de perfis que você admira</label>
-            <textarea class="textarea" id="social_referencias" name="social_referencias"></textarea>
+            <textarea class="textarea" id="social_referencias" name="social_referencias" rows="3"></textarea>
           </div>
+
           <div class="row-2">
             <div class="field">
               <label for="social_prazo">Prazo desejado</label>
@@ -325,18 +723,96 @@
           </div>
         </div>
 
-        <!-- CAMPO FINAL — sempre visível -->
-        <div class="dyn-section">
-          <div class="dyn-divider"><span class="tag">✦ Para finalizar</span><span class="line"></span></div>
-          <div class="field">
-            <label for="informacoes_extras">Alguma informação extra que queira compartilhar?</label>
-            <textarea class="textarea" id="informacoes_extras" name="informacoes_extras" placeholder="Opcional"></textarea>
-          </div>
+        <div class="bf-nav">
+          <button type="button" class="btn btn-ghost" data-prev>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+            <span>Voltar</span>
+          </button>
+          <span class="spacer"></span>
+          <button type="button" class="btn btn-primary" data-next>
+            <span class="btn-label">Próximo</span>
+            <svg class="arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </button>
         </div>
+      </section>
+
+      <!-- ============ ETAPA 6 — ARQUIVOS ============ -->
+      <section class="step-panel" data-step="6" aria-labelledby="step6-title">
+        <p class="step-count">Etapa 6 de 6</p>
+        <h2 class="step-title" id="step6-title" tabindex="-1">Materiais e finalização</h2>
+        <p class="step-desc">Tudo aqui é opcional, mas ajuda muito no processo de design.</p>
+
+        <div class="upload" data-slot="fotos">
+          <span class="upload-label">Fotos da empresa</span>
+          <label class="dropzone">
+            <input type="file" class="sr-only" multiple>
+            <span class="dz-ico" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14.9A7 7 0 1 1 15.7 8h1.8a4.5 4.5 0 0 1 2.5 8.24"/><path d="M12 12v9"/><path d="m16 16-4-4-4 4"/></svg></span>
+            <span class="dz-title"><span class="dz-fine">Arraste arquivos ou <u>clique para escolher</u></span><span class="dz-touch"><u>Toque para escolher arquivos</u></span></span>
+            <span class="dz-hint">PNG, JPG, WEBP, HEIC, HEIF · até 8 MB cada · máx. 12 arquivos</span>
+          </label>
+          <p class="upload-help">Produtos, equipe, espaço, bastidores…</p>
+          <ul class="file-list"></ul>
+          <p class="upload-error" role="alert"></p>
+        </div>
+
+        <div class="upload" data-slot="referencias">
+          <span class="upload-label">Imagens de referência</span>
+          <label class="dropzone">
+            <input type="file" class="sr-only" multiple>
+            <span class="dz-ico" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14.9A7 7 0 1 1 15.7 8h1.8a4.5 4.5 0 0 1 2.5 8.24"/><path d="M12 12v9"/><path d="m16 16-4-4-4 4"/></svg></span>
+            <span class="dz-title"><span class="dz-fine">Arraste arquivos ou <u>clique para escolher</u></span><span class="dz-touch"><u>Toque para escolher arquivos</u></span></span>
+            <span class="dz-hint">PNG, JPG, WEBP, GIF, PDF · até 8 MB cada · máx. 10 arquivos</span>
+          </label>
+          <p class="upload-help">Prints de marcas, sites ou posts que você gosta.</p>
+          <ul class="file-list"></ul>
+          <p class="upload-error" role="alert"></p>
+        </div>
+
+        <div class="upload" data-slot="outros">
+          <span class="upload-label">Outros arquivos</span>
+          <label class="dropzone">
+            <input type="file" class="sr-only" multiple>
+            <span class="dz-ico" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14.9A7 7 0 1 1 15.7 8h1.8a4.5 4.5 0 0 1 2.5 8.24"/><path d="M12 12v9"/><path d="m16 16-4-4-4 4"/></svg></span>
+            <span class="dz-title"><span class="dz-fine">Arraste arquivos ou <u>clique para escolher</u></span><span class="dz-touch"><u>Toque para escolher arquivos</u></span></span>
+            <span class="dz-hint">Imagens, PDF, AI, EPS, PSD, CDR, documentos, ZIP e vídeos curtos · até 8 MB cada · máx. 8 arquivos</span>
+          </label>
+          <p class="upload-help">Qualquer outro material que ajude a entender o projeto.</p>
+          <ul class="file-list"></ul>
+          <p class="upload-error" role="alert"></p>
+        </div>
+
+        <div class="field">
+          <label for="referencias_links">Links de inspiração (Pinterest, Behance, Instagram…)</label>
+          <textarea class="textarea" id="referencias_links" name="referencias_links" rows="3" autocapitalize="off" spellcheck="false" placeholder="Um link por linha"></textarea>
+        </div>
+        <div class="field">
+          <label for="arquivos_link">Tem arquivos maiores que 8 MB? Cole um link do Google Drive, Dropbox ou WeTransfer</label>
+          <input class="input" type="text" inputmode="url" id="arquivos_link" name="arquivos_link" autocapitalize="off" spellcheck="false" placeholder="https://drive.google.com/…">
+        </div>
+        <div class="field">
+          <label for="prazo_geral">Para quando você precisa de tudo pronto?</label>
+          <select class="select" id="prazo_geral" name="prazo_geral">
+            <option value="">Selecione…</option>
+            <option>Sem pressa</option><option>Em até 1 mês</option><option>Em até 2 semanas</option><option>Tenho uma data específica (conte abaixo)</option><option>Urgente</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="informacoes_extras">Alguma informação extra que queira compartilhar?</label>
+          <textarea class="textarea" id="informacoes_extras" name="informacoes_extras" rows="4" placeholder="Datas importantes, dúvidas, ideias soltas…"></textarea>
+        </div>
+
+        <div class="files-summary" id="filesSummary" aria-live="polite">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
+          <p><span class="fs-main">Nenhum arquivo selecionado</span> <span class="fs-extra"></span></p>
+        </div>
+        <p class="privacy-note">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <span>Seus dados e arquivos são usados só para preparar a sua proposta.</span>
+        </p>
 
         <div class="send-error" id="sendError" role="alert">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>
-          <span>Não conseguimos enviar agora. Verifique sua conexão e tente novamente.</span>
+          <span class="send-error-text">Não conseguimos enviar agora. Verifique sua conexão e tente novamente.</span>
         </div>
 
         <div class="bf-nav">
@@ -351,7 +827,7 @@
             <svg class="arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
           </button>
         </div>
-      </div>
+      </section>
 
     </form>
 
@@ -360,8 +836,9 @@
       <div class="seal">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
       </div>
-      <h2>Recebemos seu briefing!</h2>
+      <h2 tabindex="-1">Recebemos seu briefing!</h2>
       <p>Obrigado pelas informações. Em breve entraremos em contato para os próximos passos.</p>
+      <p class="success-files" id="successFiles" hidden></p>
       <a href="index.html" class="btn btn-primary">
         Voltar ao site
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>

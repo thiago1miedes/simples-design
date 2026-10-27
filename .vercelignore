@@ -1,3 +1,5 @@
 .vercel
 .DS_Store
 serve.ps1
+.claude/
+supabase/

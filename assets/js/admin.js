@@ -468,7 +468,7 @@
   function storagePathsForBriefing(item) {
     var refs = filesOf(item);
     var paths = [];
-    var seen = {};
+    var seen = Object.create(null);
     var invalid = false;
     var prefix = item && item.id ? String(item.id) + "/" : "";
 
@@ -679,6 +679,7 @@
   function setStatus(item, newStatus) {
     var prev = item.status || "novo";
     if (newStatus === prev || !STATUS_LABELS[newStatus]) return;
+    if (item._stConfirmed === undefined) item._stConfirmed = prev;   /* último status salvo no banco */
     item._stSeq = (item._stSeq || 0) + 1;
     var seq = item._stSeq;
     applyStatusUI(item, newStatus);
@@ -686,13 +687,14 @@
     function fail(err) {
       console.error("Erro ao atualizar status:", err);
       if (seq !== item._stSeq) return;          /* já houve outra mudança depois desta */
-      applyStatusUI(item, prev);
+      applyStatusUI(item, item._stConfirmed);
       toast("Não foi possível atualizar o status. Tente novamente.", "error");
     }
 
     /* .select("id") confirma que a linha foi realmente alterada (RLS não devolve erro) */
     supa.from(tableOf(item)).update({ status: newStatus }).eq("id", item.id).select("id").then(function (res) {
-      if (res.error || !res.data || !res.data.length) { fail(res.error || "nenhuma linha atualizada"); }
+      if (res.error || !res.data || !res.data.length) { fail(res.error || "nenhuma linha atualizada"); return; }
+      item._stConfirmed = newStatus;
     }, fail);
   }
 
@@ -1106,7 +1108,7 @@
     if (!drawerFiles.length) return "";
     var total = 0;
     var groups = [];
-    var bySlot = {};
+    var bySlot = Object.create(null);
     drawerFiles.forEach(function (w) {
       total += w.size;
       if (!bySlot[w.slot]) { bySlot[w.slot] = { slot: w.slot, files: [] }; groups.push(bySlot[w.slot]); }
@@ -1219,7 +1221,7 @@
     if (!drawerFiles.length || !supa) return;
     setFilesError(false);
 
-    var seen = {};
+    var seen = Object.create(null);
     var paths = [];
     drawerFiles.forEach(function (w) {
       if (!seen[w.path]) { seen[w.path] = 1; paths.push(w.path); }
@@ -1240,7 +1242,7 @@
     req.then(function (res) {
       if (token !== drawerToken) return;
       if (!res || res.error || !Array.isArray(res.data)) { fail(res && res.error); return; }
-      var byPath = {};
+      var byPath = Object.create(null);
       res.data.forEach(function (d, k) {
         if (!d) return;
         var p = d.path || paths[k];

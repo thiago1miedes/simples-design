@@ -1,7 +1,7 @@
 node_modules/
 .env
 .env.local
-assets/js/supabase-config.js
 .DS_Store
 Thumbs.db
 .vercel
+supabase/.temp/

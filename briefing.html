@@ -78,19 +78,19 @@
 
         <div class="field">
           <label for="nome">Nome completo <span class="req" aria-hidden="true">*</span></label>
-          <input class="input" type="text" id="nome" name="nome" autocomplete="name" required aria-describedby="nome-erro">
+          <input class="input" type="text" id="nome" name="nome" autocomplete="name" required>
           <span class="field-error" id="nome-erro">Por favor, informe seu nome.</span>
         </div>
 
         <div class="row-2">
           <div class="field">
             <label for="email">E-mail <span class="req" aria-hidden="true">*</span></label>
-            <input class="input" type="email" id="email" name="email" autocomplete="email" inputmode="email" autocapitalize="off" spellcheck="false" required aria-describedby="email-erro">
+            <input class="input" type="email" id="email" name="email" autocomplete="email" inputmode="email" autocapitalize="off" spellcheck="false" required>
             <span class="field-error" id="email-erro">Informe um e-mail válido.</span>
           </div>
           <div class="field">
             <label for="whatsapp">WhatsApp</label>
-            <input class="input" type="tel" id="whatsapp" name="whatsapp" autocomplete="tel-national" inputmode="tel" placeholder="(00) 00000-0000" maxlength="16" aria-describedby="whatsapp-erro">
+            <input class="input" type="tel" id="whatsapp" name="whatsapp" autocomplete="tel-national" inputmode="tel" placeholder="(00) 00000-0000" maxlength="16">
             <span class="field-error" id="whatsapp-erro">Número incompleto — inclua o DDD.</span>
           </div>
         </div>
@@ -135,7 +135,7 @@
 
         <div class="field">
           <label for="empresa">Nome da empresa, marca ou projeto <span class="req" aria-hidden="true">*</span></label>
-          <input class="input" type="text" id="empresa" name="empresa" autocomplete="organization" required aria-describedby="empresa-dica empresa-erro">
+          <input class="input" type="text" id="empresa" name="empresa" autocomplete="organization" required aria-describedby="empresa-dica">
           <span class="field-hint" id="empresa-dica">Se for uma marca pessoal, pode usar o seu nome.</span>
           <span class="field-error" id="empresa-erro">Informe o nome da empresa, marca ou projeto.</span>
         </div>
@@ -384,7 +384,7 @@
           <legend class="svc-question">O que você quer desenvolver? <span class="req" aria-hidden="true">*</span></legend>
           <div class="svc-grid" id="svcGrid">
             <label class="svc-card" data-svc="site">
-              <input type="checkbox" name="servico" value="site" aria-describedby="svcError">
+              <input type="checkbox" name="servico" value="site">
               <span class="check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
               <span class="ico" aria-hidden="true">🌐</span>
               <span class="ttl">Site / Landing Page</span>
@@ -392,7 +392,7 @@
             </label>
 
             <label class="svc-card" data-svc="identidade">
-              <input type="checkbox" name="servico" value="identidade" aria-describedby="svcError">
+              <input type="checkbox" name="servico" value="identidade">
               <span class="check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
               <span class="ico" aria-hidden="true">🎨</span>
               <span class="ttl">Identidade Visual</span>
@@ -400,7 +400,7 @@
             </label>
 
             <label class="svc-card" data-svc="social">
-              <input type="checkbox" name="servico" value="social" aria-describedby="svcError">
+              <input type="checkbox" name="servico" value="social">
               <span class="check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
               <span class="ico" aria-hidden="true">📱</span>
               <span class="ttl">Redes Sociais</span>

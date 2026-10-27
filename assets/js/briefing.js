@@ -259,11 +259,19 @@
   whats.addEventListener("blur", function () { whats.value = maskPhone(whats.value, true); });
 
   /* ---------- estado inválido dos campos ---------- */
+  // inclui/remove um id em aria-describedby (o erro só é descrito enquanto aparece)
+  function toggleDescribedBy(el, id, on) {
+    var ids = (el.getAttribute("aria-describedby") || "").split(/\s+/).filter(function (t) { return t && t !== id; });
+    if (on) ids.push(id);
+    if (ids.length) el.setAttribute("aria-describedby", ids.join(" "));
+    else el.removeAttribute("aria-describedby");
+  }
   function setInvalid(el, invalid) {
     var wrap = el.closest(".field");
     if (wrap) wrap.classList.toggle("invalid", invalid);
     if (invalid) el.setAttribute("aria-invalid", "true");
     else el.removeAttribute("aria-invalid");
+    if (byId(el.id + "-erro")) toggleDescribedBy(el, el.id + "-erro", invalid);
   }
   function validatedIds() {
     var ids = [];
@@ -352,7 +360,10 @@
       return svcInputs.some(function (i) { return i.value === svc && i.checked; });
     });
   }
-  function setSvcError(show) { svcError.classList.toggle("show", show); }
+  function setSvcError(show) {
+    svcError.classList.toggle("show", show);
+    svcInputs.forEach(function (i) { toggleDescribedBy(i, "svcError", show); });
+  }
 
   function syncServices() {
     var sel = selectedServices();
